@@ -8,26 +8,16 @@ export class WPSContour implements WPS {
   }
   getForm(): HTMLElement {
     const div = document.createElement("div");
-    div.innerHTML = '<label for="latitudeLower">latitudeLower</label>';
-    div.innerHTML += `
-      <input type="text" name="latitudeLower" id="latitudeLower"></input>
-    `;
-    div.innerHTML += '<label for="longitudeLower">longitudeLower</label>';
-    div.innerHTML += `
-      <input type="text" name="longitudeLower" id="longitudeLower"></input>
-    `;
-    div.innerHTML += '<label for="latitudeUpper">latitudeUpper</label>';
-    div.innerHTML += `
-      <input type="text" name="latitudeUpper" id="latitudeUpper"></input>
-    `;
-    div.innerHTML += '<label for="longitudeUpper">longitudeUpper</label>';
-    div.innerHTML += `
-      <input type="text" name="longitudeUpper" id="longitudeUpper"></input>
-    `;
-    div.innerHTML += '<label for="equidistance">equidistance</label>';
-    div.innerHTML += `
-      <input type="text" name="equidistance" id="equidistance"></input>
-    `;
+    div.innerHTML = `<label for="latitudeLower">latitudeLower</label>`;
+    div.innerHTML += `<input type="text" name="latitudeLower" id="latitudeLower"></input>`;
+    div.innerHTML += `<label for="longitudeLower">longitudeLower</label>`;
+    div.innerHTML += `<input type="text" name="longitudeLower" id="longitudeLower"></input>`;
+    div.innerHTML += `<label for="latitudeUpper">latitudeUpper</label>`;
+    div.innerHTML += `<input type="text" name="latitudeUpper" id="latitudeUpper"></input>`;
+    div.innerHTML += `<label for="longitudeUpper">longitudeUpper</label>`;
+    div.innerHTML += `<input type="text" name="longitudeUpper" id="longitudeUpper"></input>`;
+    div.innerHTML += `<label for="equidistance">equidistance</label>`;
+    div.innerHTML += `<input type="text" name="equidistance" id="equidistance"></input>`;
     return div;
   }
 
