@@ -2,32 +2,41 @@ import { Postman } from "./postman";
 import { WPS } from "./WPS";
 
 export class WPSContour implements WPS {
+  postman: Postman;
+  constructor(postman: Postman) {
+    this.postman = postman;
+  }
+  getForm(): HTMLElement {
+    const div = document.createElement("div");
+    div.innerHTML = '<label for="latitudeLower">latitudeLower</label>';
+    div.innerHTML += `
+      <input type="text" name="latitudeLower" id="latitudeLower"></input>
+    `;
+    div.innerHTML += '<label for="longitudeLower">longitudeLower</label>';
+    div.innerHTML += `
+      <input type="text" name="longitudeLower" id="longitudeLower"></input>
+    `;
+    div.innerHTML += '<label for="latitudeUpper">latitudeUpper</label>';
+    div.innerHTML += `
+      <input type="text" name="latitudeUpper" id="latitudeUpper"></input>
+    `;
+    div.innerHTML += '<label for="longitudeUpper">longitudeUpper</label>';
+    div.innerHTML += `
+      <input type="text" name="longitudeUpper" id="longitudeUpper"></input>
+    `;
+    div.innerHTML += '<label for="equidistance">equidistance</label>';
+    div.innerHTML += `
+      <input type="text" name="equidistance" id="equidistance"></input>
+    `;
+    return div;
+  }
 
-    postman: Postman;
-    constructor(postman: Postman) {
-        this.postman = postman;
-    }
-  
-    getForm(): HTMLElement {
-        const div = document.createElement("div");
-        div.innerHTML = '<label for="latitudeLower">latitudeLower</label>';
-        div.innerHTML += '<input type="text" name="latitudeLower" id="latitudeLower"></input>';
-        div.innerHTML += '<label for="longitudeLower">longitudeLower</label>';
-        div.innerHTML += '<input type="text" name="longitudeLower" id="longitudeLower"></input>';
-        div.innerHTML += '<label for="latitudeUpper">latitudeUpper</label>';
-        div.innerHTML += '<input type="text" name="latitudeUpper" id="latitudeUpper"></input>';
-        div.innerHTML += '<label for="longitudeUpper">longitudeUpper</label>';
-        div.innerHTML += '<input type="text" name="longitudeUpper" id="longitudeUpper"></input>';
-        div.innerHTML += '<label for="equidistance">equidistance</label>';
-        div.innerHTML += '<input type="text" name="equidistance" id="equidistance"></input>';
-        return div;
-    }
-
-    async execute(inputParameters: JSON): Promise<JSON> {
-
-        let inputParametersData = Object.assign(new WPSContourData, inputParameters);
-
-        const inputXml = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
+  async execute(inputParameters: JSON): Promise<JSON> {
+    const inputParametersData = Object.assign(
+      new WPSContourData(),
+      inputParameters
+    );
+    const inputXml = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
   <ows:Identifier>gs:Contour</ows:Identifier>
   <wps:DataInputs>
     <wps:Input>
@@ -79,17 +88,17 @@ export class WPSContour implements WPS {
   </wps:ResponseForm>
 </wps:Execute>`;
 
-        return await this.postman.post(
-            "http://172.20.205.70:8080/geoserver/ows?service=WPS&version=1.0.0&request=Execute&identifier=gs:Contour",
-            inputXml);
-    }
-
+    return await this.postman.post(
+      "http://172.20.205.70:8080/geoserver/ows?service=WPS&version=1.0.0&request=Execute&identifier=gs:Contour",
+      inputXml
+    );
+  }
 }
 
-class WPSContourData  {
-    longitudeLower!: number;
-    latitudeLower!: number;
-    longitudeUpper!: number;
-    latitudeUpper!: number;
-    equidistance!: number;
+class WPSContourData {
+  longitudeLower!: number;
+  latitudeLower!: number;
+  longitudeUpper!: number;
+  latitudeUpper!: number;
+  equidistance!: number;
 }
