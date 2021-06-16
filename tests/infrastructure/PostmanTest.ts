@@ -1,6 +1,6 @@
-import { Postman } from "../../src/postman";
+import Postman from "../../src/domain/Postman";
 
-export class PostmanTest implements Postman {
+export default class PostmanTest implements Postman {
   response = `
     {
      "type":"FeatureCollection",

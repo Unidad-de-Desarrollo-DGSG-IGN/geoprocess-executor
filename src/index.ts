@@ -1,14 +1,4 @@
-import { PostmanHTTP } from "./infrastructure/PostmanHTTP";
-import { WPS } from "./WPS";
-import { WPSContour } from "./WPSContour";
+import Contour from "./application/ContourHandler";
+import SayHi from "./application/SayHi";
 
-export default class WPSFactory {
-  createWPS(wpsName: string): WPS {
-    switch (wpsName) {
-      case "countour":
-        return new WPSContour(new PostmanHTTP());
-      default:
-        throw new TypeError("Invalid WPS name");
-    }
-  }
-}
+export { Contour, SayHi };

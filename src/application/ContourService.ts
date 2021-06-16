@@ -1,11 +1,14 @@
-import { Postman } from "./postman";
-import { WPS } from "./WPS";
+import Equidistance from "../domain/Equidistance";
+import Latitude from "../domain/Latitude";
+import Longitude from "../domain/Longitude";
+import Postman from "../domain/Postman";
 
-export class WPSContour implements WPS {
-  postman: Postman;
+export default class ContourService {
+  private postman: Postman;
   constructor(postman: Postman) {
     this.postman = postman;
   }
+
   getForm(): HTMLElement {
     const div = document.createElement("div");
     div.innerHTML = `<label for="latitudeLower">latitudeLower</label>`;
@@ -21,11 +24,13 @@ export class WPSContour implements WPS {
     return div;
   }
 
-  async execute(inputParameters: JSON): Promise<JSON> {
-    const inputParametersData = Object.assign(
-      new WPSContourData(),
-      inputParameters
-    );
+  async execute(
+    longitudeLower: Longitude,
+    latitudeLower: Latitude,
+    longitudeUpper: Longitude,
+    latitudeUpper: Latitude,
+    equidistance: Equidistance
+  ): Promise<JSON> {
     const inputXml = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
   <ows:Identifier>gs:Contour</ows:Identifier>
   <wps:DataInputs>
@@ -37,8 +42,8 @@ export class WPSContour implements WPS {
             <ows:Identifier>ign:alos_unificado</ows:Identifier>
             <wcs:DomainSubset>
               <ows:BoundingBox crs="http://www.opengis.net/gml/srs/epsg.xml#4326">
-                <ows:LowerCorner>${inputParametersData.longitudeLower} ${inputParametersData.latitudeLower}</ows:LowerCorner>
-                <ows:UpperCorner>${inputParametersData.longitudeUpper} ${inputParametersData.latitudeUpper}</ows:UpperCorner>
+                <ows:LowerCorner>${longitudeLower.value} ${latitudeLower.value}</ows:LowerCorner>
+                <ows:UpperCorner>${longitudeUpper.value} ${latitudeUpper.value}</ows:UpperCorner>
               </ows:BoundingBox>
             </wcs:DomainSubset>
             <wcs:Output format="image/tiff"/>
@@ -67,7 +72,7 @@ export class WPSContour implements WPS {
     <wps:Input>
       <ows:Identifier>interval</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>${inputParametersData.equidistance}</wps:LiteralData>
+        <wps:LiteralData>${equidistance.value}</wps:LiteralData>
       </wps:Data>
     </wps:Input>
   </wps:DataInputs>
@@ -83,12 +88,4 @@ export class WPSContour implements WPS {
       inputXml
     );
   }
-}
-
-class WPSContourData {
-  longitudeLower!: number;
-  latitudeLower!: number;
-  longitudeUpper!: number;
-  latitudeUpper!: number;
-  equidistance!: number;
 }

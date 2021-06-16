@@ -1,6 +1,6 @@
-import { Postman } from "../postman";
+import Postman from "../domain/Postman";
 
-export class PostmanHTTP implements Postman {
+export default class PostmanHTTP implements Postman {
   async post(url: string, content: string): Promise<JSON> {
     // Opciones por defecto estan marcadas con un *
     const response = await fetch(url, {

@@ -6,10 +6,10 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    libraryTarget: 'umd',
-    library: 'WPSFactory',
-    umdNamedDefine: true,
-	  libraryExport: 'default'
+    library: {
+      name: 'GeoserviceFactory',
+      type: 'var'
+    }
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
