@@ -55,6 +55,8 @@ npm install
 npm run build
 ```
 
+The library was developed using npm 6.14.4
+
 ## Testing
 
 ### Jest with Testing Library
