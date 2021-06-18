@@ -7,7 +7,10 @@ import PostmanTest from "./infrastructure/PostmanTest";
 
 test("Get WPS Contour form", () => {
   const postmanTest = new PostmanTest();
-  const contourHandler = new ContourHandler(new ContourService(postmanTest));
+  const contourHandler = new ContourHandler(
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    new ContourService(postmanTest)
+  );
   const expectedForm = document.createElement("div");
   expectedForm.innerHTML = `<label for="latitudeLower">latitudeLower</label>`;
   expectedForm.innerHTML += `<input type="text" name="latitudeLower" id="latitudeLower"></input>`;
@@ -24,7 +27,10 @@ test("Get WPS Contour form", () => {
 
 test("Execute succesful WPS Contour", async () => {
   const postmanTest = new PostmanTest();
-  const contourHandler = new ContourHandler(new ContourService(postmanTest));
+  const contourHandler = new ContourHandler(
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    new ContourService(postmanTest)
+  );
   expect(
     await contourHandler.execute(
       -69.84479,
@@ -38,7 +44,10 @@ test("Execute succesful WPS Contour", async () => {
 
 test("Execute WPS Contour and get Exception", async () => {
   const postmanTest = new PostmanTest();
-  const contourHandler = new ContourHandler(new ContourService(postmanTest));
+  const contourHandler = new ContourHandler(
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    new ContourService(postmanTest)
+  );
   expect(
     async () => await contourHandler.execute(1, 1, 1, 1, 1)
   ).rejects.toThrow(RangeError);
