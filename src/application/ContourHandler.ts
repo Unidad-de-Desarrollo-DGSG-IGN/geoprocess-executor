@@ -17,8 +17,8 @@ export default class ContourHandler {
     }
   }
 
-  getForm(): HTMLElement {
-    return this.service.getForm();
+  getFields(): JSON {
+    return this.service.getFields();
   }
 
   async execute(

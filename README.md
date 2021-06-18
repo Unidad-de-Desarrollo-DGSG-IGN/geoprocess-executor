@@ -13,7 +13,9 @@ The library compiled file is into "dist" directory.
 2. The entry point name is "GeoserviceFactory". From this entry point you can access to all classes. For example:
 ```sh
 <script>
-    let contour = new GeoserviceFactory.Contour();
+    let contour = new GeoserviceFactory.Contour(       
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+    );
     contour
       .execute(-69.84479, -34.17065, -69.82531, -34.15469, 100)
       .then((result) => {
@@ -28,7 +30,8 @@ Allow to execute gs:Contour geoprocess from Geoserver
 
 **Methods**
 
-- getForm(): retrive HTML form with geoprocess inputs.
+- constructor(wpsEndpoint): when you generate a new instance of the class Contour, you must to indicate the WPS endpoind that you wish to use.
+- getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ## Used technology
