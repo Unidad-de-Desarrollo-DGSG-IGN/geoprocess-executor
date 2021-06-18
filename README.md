@@ -16,10 +16,14 @@ The library compiled file is into "dist" directory.
     let contour = new GeoserviceFactory.Contour(       
       "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
     );
+    console.log(contour.getFields());
     contour
       .execute(-69.84479, -34.17065, -69.82531, -34.15469, 100)
       .then((result) => {
         console.log(result);
+      })
+      .catch((ex) => {
+        console.log(ex.message);
       });
 </script>
 ```
