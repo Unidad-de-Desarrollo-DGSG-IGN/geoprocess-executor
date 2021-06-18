@@ -2,6 +2,7 @@ import Equidistance from "../domain/Equidistance";
 import Latitude from "../domain/Latitude";
 import Longitude from "../domain/Longitude";
 import Postman from "../domain/Postman";
+import wpsEndpoint from "../domain/WPSEndpoint";
 
 export default class ContourService {
   private postman: Postman;
@@ -30,7 +31,7 @@ export default class ContourService {
     longitudeUpper: Longitude,
     latitudeUpper: Latitude,
     equidistance: Equidistance,
-    wpsEndpoint = "http://172.20.205.70:8080/geoserver/ows?service=WPS&version=1.0.0"
+    wpsEndpoint: wpsEndpoint
   ): Promise<JSON> {
     const inputXml = `<?xml version="1.0" encoding="UTF-8"?><wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
   <ows:Identifier>gs:Contour</ows:Identifier>
@@ -85,7 +86,7 @@ export default class ContourService {
 </wps:Execute>`;
 
     return await this.postman.post(
-      `${wpsEndpoint}&request=Execute&identifier=gs:Contour`,
+      `${wpsEndpoint.value}&request=Execute&identifier=gs:Contour`,
       inputXml
     );
   }
