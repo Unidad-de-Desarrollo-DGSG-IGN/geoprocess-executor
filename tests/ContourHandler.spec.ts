@@ -11,18 +11,24 @@ test("Get WPS Contour form", () => {
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     new ContourService(postmanTest)
   );
-  const expectedForm = document.createElement("div");
-  expectedForm.innerHTML = `<label for="latitudeLower">latitudeLower</label>`;
-  expectedForm.innerHTML += `<input type="text" name="latitudeLower" id="latitudeLower"></input>`;
-  expectedForm.innerHTML += `<label for="longitudeLower">longitudeLower</label>`;
-  expectedForm.innerHTML += `<input type="text" name="longitudeLower" id="longitudeLower"></input>`;
-  expectedForm.innerHTML += `<label for="latitudeUpper">latitudeUpper</label>`;
-  expectedForm.innerHTML += `<input type="text" name="latitudeUpper" id="latitudeUpper"></input>`;
-  expectedForm.innerHTML += `<label for="longitudeUpper">longitudeUpper</label>`;
-  expectedForm.innerHTML += `<input type="text" name="longitudeUpper" id="longitudeUpper"></input>`;
-  expectedForm.innerHTML += `<label for="equidistance">equidistance</label>`;
-  expectedForm.innerHTML += `<input type="text" name="equidistance" id="equidistance"></input>`;
-  expect(contourHandler.getForm()).toEqual(expectedForm);
+  const expectedFields = JSON.parse(
+    `[
+      {
+        "name": "Capa",
+        "type": "select",
+        "references": "drawedLayers",
+        "allowedTypes": ["rectangle"],
+        "points": ["ne", "sw"]
+      },
+      {
+        "name": "Equidistancia",
+        "type": "integer",
+        "min": 100,
+        "max": 10000
+      }
+    ]`
+  );
+  expect(contourHandler.getFields()).toEqual(expectedFields);
 });
 
 test("Execute succesful WPS Contour", async () => {
