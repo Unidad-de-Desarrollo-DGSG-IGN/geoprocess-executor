@@ -1,9 +1,17 @@
+import "reflect-metadata";
+
+import { container } from "tsyringe";
+
 import Equidistance from "../domain/Equidistance";
 import Latitude from "../domain/Latitude";
 import Longitude from "../domain/Longitude";
 import wpsEndpoint from "../domain/WPSEndpoint";
 import PostmanHTTP from "../infrastructure/PostmanHTTP";
 import ContourService from "./ContourService";
+
+container.register("Postman", {
+  useClass: PostmanHTTP,
+});
 
 export default class ContourHandler {
   private host: string;
@@ -13,7 +21,7 @@ export default class ContourHandler {
     if (service) {
       this.service = service;
     } else {
-      this.service = new ContourService(new PostmanHTTP());
+      this.service = container.resolve(ContourService);
     }
   }
 

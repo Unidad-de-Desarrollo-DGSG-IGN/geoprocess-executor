@@ -43,6 +43,7 @@ Allow to execute gs:Contour geoprocess from Geoserver
 - [TypeScript](https://www.typescriptlang.org/) (v4)
 - [Webpack](https://webpack.js.org/) (v5)
 - [Babel](https://babeljs.io/) with [preset-env](https://babeljs.io/docs/en/babel-preset-env)
+- [TSyringe](https://github.com/microsoft/tsyringe)
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/) with:
   - [Simple Import Sort](https://github.com/lydell/eslint-plugin-simple-import-sort/)

@@ -1,12 +1,15 @@
+import { inject, injectable } from "tsyringe";
+
 import Equidistance from "../domain/Equidistance";
 import Latitude from "../domain/Latitude";
 import Longitude from "../domain/Longitude";
 import Postman from "../domain/Postman";
 import wpsEndpoint from "../domain/WPSEndpoint";
 
+@injectable()
 export default class ContourService {
   private postman: Postman;
-  constructor(postman: Postman) {
+  constructor(@inject("Postman") postman: Postman) {
     this.postman = postman;
   }
 
