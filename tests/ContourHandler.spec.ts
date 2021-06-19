@@ -1,15 +1,19 @@
-// adds special assertions like toHaveTextContent
-import "@testing-library/jest-dom/extend-expect";
+import "reflect-metadata";
+
+import { container } from "tsyringe";
 
 import ContourHandler from "../src/application/ContourHandler";
 import ContourService from "../src/application/ContourService";
 import PostmanTest from "./infrastructure/PostmanTest";
 
+container.register("Postman", {
+  useClass: PostmanTest,
+});
+
 test("Get WPS Contour form", () => {
-  const postmanTest = new PostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
-    new ContourService(postmanTest)
+    container.resolve(ContourService)
   );
   const expectedFields = JSON.parse(
     `[
@@ -35,7 +39,7 @@ test("Execute succesful WPS Contour", async () => {
   const postmanTest = new PostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
-    new ContourService(postmanTest)
+    container.resolve(ContourService)
   );
   expect(
     await contourHandler.execute(
@@ -49,10 +53,9 @@ test("Execute succesful WPS Contour", async () => {
 });
 
 test("Execute WPS Contour and get Exception", async () => {
-  const postmanTest = new PostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
-    new ContourService(postmanTest)
+    container.resolve(ContourService)
   );
   expect(
     async () => await contourHandler.execute(1, 1, 1, 1, 1)

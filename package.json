@@ -32,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "awesome-typescript-loader": "^5.2.1",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "css-loader": "^5.2.6",
     "cypress": "^7.5.0",
     "eslint": "^7.28.0",
@@ -61,6 +62,9 @@
     "not IE 11"
   ],
   "dependencies": {
-    "http-server": "^0.12.3"
+    "http-server": "^0.12.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.1.0",
+    "tsyringe": "^4.5.0"
   }
 }
