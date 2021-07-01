@@ -7,8 +7,8 @@ export default class Equidistance extends NumberValueObject {
   }
 
   private ensureIsValidEquidistance(): void {
-    if (this.value < 100 || this.value > 10000) {
-      throw RangeError("The latitud must be between 100 and 10000");
+    if (this.value < 10 || this.value > 10000) {
+      throw RangeError("The equidistance must be between 10 and 10000");
     }
   }
 }
