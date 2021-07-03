@@ -88,7 +88,7 @@ export default class ContourService {
     <wps:Input>
       <ows:Identifier>smooth</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>true</wps:LiteralData>
+        <wps:LiteralData>false</wps:LiteralData>
       </wps:Data>
     </wps:Input>
     <wps:Input>
