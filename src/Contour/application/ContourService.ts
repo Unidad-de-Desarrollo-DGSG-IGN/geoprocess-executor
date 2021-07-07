@@ -1,10 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import Equidistance from "../../Shared/domain/Equidistance";
-import Latitude from "../../Shared/domain/Latitude";
-import Longitude from "../../Shared/domain/Longitude";
 import Postman from "../../Shared/domain/Postman";
-import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import Contour from "../domain/Contour";
 import ToleranceChecker from "../domain/ToleranceChecker";
 
