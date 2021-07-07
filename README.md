@@ -28,7 +28,7 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
-3. Another example to consume Elevation Profile geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
+3. Another example to consume Elevation Profile geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend project](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
 ```sh
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
@@ -70,6 +70,7 @@ Allow to execute gs:Contour geoprocess from Geoserver
   - And a few other ES2015+ related rules
 - [Jest](https://jestjs.io) with [DOM Testing Library](https://testing-library.com/docs/dom-testing-library/intro)
 - [GitHub Action workflows](https://github.com/features/actions) set up to run tests and linting on push
+- [TurfJS](https://turfjs.org)
 
 ## Installation and build
 
