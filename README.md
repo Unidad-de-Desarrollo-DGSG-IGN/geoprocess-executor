@@ -32,7 +32,7 @@ The library compiled file is into "dist" directory.
 ```sh
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
-      "http://172.20.201.37/geoprocess-backend/elevation-profile"
+      "http://127.0.0.1/geoprocess-backend/elevation-profile"
     );
     console.log(elevationProfile.getFields());
     elevationProfile
