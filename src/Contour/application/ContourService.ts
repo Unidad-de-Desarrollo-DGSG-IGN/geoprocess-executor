@@ -21,24 +21,7 @@ export default class ContourService {
   }
 
   getFields(): JSON {
-    return JSON.parse(
-      `[
-        {
-          "name": "Capa",
-          "element": "select",
-          "references": "drawedLayers",
-          "allowedTypes": ["rectangle"],
-          "points": ["ne", "sw"]
-        },
-        {
-          "name": "Equidistancia",
-          "element": "input",
-          "type": "number",
-          "min": 10,
-          "max": 10000
-        }
-      ]`
-    );
+    return Contour.FIELDS;
   }
 
   async execute(

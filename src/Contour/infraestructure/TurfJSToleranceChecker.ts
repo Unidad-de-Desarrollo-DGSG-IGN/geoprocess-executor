@@ -18,7 +18,7 @@ export default class TurfJSToleranceChecker implements ToleranceChecker {
       contour.latitudeUpper
     );
 
-    if (area(inputPolygon) > contour.MAX_AREA_ALLOWED) {
+    if (area(inputPolygon) > Contour.MAX_AREA_ALLOWED) {
       throw RangeError("The area requested must be less than 100km2");
     }
 
@@ -38,11 +38,11 @@ export default class TurfJSToleranceChecker implements ToleranceChecker {
 
     if (
       interseccion == true &&
-      contour.equidistance.value < contour.MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED
+      contour.equidistance.value < Contour.MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED
     ) {
       throw RangeError("Equidistance must be grather than 100");
     } else if (
-      contour.equidistance.value < contour.MIN_VALLEY_EQUIDISTANCE_ALLOWED
+      contour.equidistance.value < Contour.MIN_VALLEY_EQUIDISTANCE_ALLOWED
     ) {
       throw RangeError("Equidistance must be grather than 10");
     }

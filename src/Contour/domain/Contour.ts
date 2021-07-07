@@ -11,9 +11,27 @@ export default class Contour {
   private _equidistance: Equidistance;
   private _wpsEndpoint: wpsEndpoint;
 
-  readonly MAX_AREA_ALLOWED = 100000000;
-  readonly MIN_VALLEY_EQUIDISTANCE_ALLOWED = 10;
-  readonly MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED = 100;
+  static readonly MAX_AREA_ALLOWED = 100000000;
+  static readonly MIN_VALLEY_EQUIDISTANCE_ALLOWED = 10;
+  static readonly MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED = 100;
+  static readonly FIELDS = JSON.parse(
+    `[
+      {
+        "name": "Capa",
+        "element": "select",
+        "references": "drawedLayers",
+        "allowedTypes": ["rectangle"],
+        "points": ["ne", "sw"]
+      },
+      {
+        "name": "Equidistancia",
+        "element": "input",
+        "type": "number",
+        "min": 10,
+        "max": 10000
+      }
+    ]`
+  );
 
   constructor(
     longitudeLower: Longitude,
