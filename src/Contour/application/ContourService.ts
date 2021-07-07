@@ -24,29 +24,10 @@ export default class ContourService {
     return Contour.FIELDS;
   }
 
-  async execute(
-    longitudeLower: Longitude,
-    latitudeLower: Latitude,
-    longitudeUpper: Longitude,
-    latitudeUpper: Latitude,
-    equidistance: Equidistance,
-    wpsEndpoint: wpsEndpoint
-  ): Promise<JSON> {
-    const contour: Contour = new Contour(
-      longitudeLower,
-      latitudeLower,
-      longitudeUpper,
-      latitudeUpper,
-      equidistance,
-      wpsEndpoint
-    );
-
+  async execute(contour: Contour): Promise<JSON> {
     this.ensureInputDataIsInTolerance(contour);
 
-    return await this.postman.post(
-      `${wpsEndpoint.value}&request=Execute&identifier=gs:Contour`,
-      contour.xmlInput
-    );
+    return await this.postman.post(contour.fullWpsEndpoint, contour.xmlInput);
   }
 
   ensureInputDataIsInTolerance(contour: Contour): void {

@@ -7,6 +7,7 @@ import Latitude from "../../Shared/domain/Latitude";
 import Longitude from "../../Shared/domain/Longitude";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
+import Contour from "../domain/Contour";
 import TurfJSToleranceChecker from "../infraestructure/TurfJSToleranceChecker";
 import ContourService from "./ContourService";
 
@@ -40,7 +41,7 @@ export default class ContourHandler {
     latitudeUpper: number,
     equidistance: number
   ): Promise<JSON> {
-    return this.service.execute(
+    const contour: Contour = new Contour(
       new Longitude(longitudeLower),
       new Latitude(latitudeLower),
       new Longitude(longitudeUpper),
@@ -48,5 +49,7 @@ export default class ContourHandler {
       new Equidistance(equidistance),
       new wpsEndpoint(this.host)
     );
+
+    return this.service.execute(contour);
   }
 }
