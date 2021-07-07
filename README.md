@@ -28,7 +28,7 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
-3. Another example to consume Elevation Profile geoprocess:
+3. Another example to consume Elevation Profile geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
 ```sh
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
