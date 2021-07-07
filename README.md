@@ -10,7 +10,7 @@ The library compiled file is into "dist" directory.
 <script src="main.js"></script>
 ```
 
-2. The entry point name is "GeoserviceFactory". From this entry point you can access to all classes. For example:
+2. The entry point name is "GeoserviceFactory". From this entry point you can access to all classes. For example, to consume Contour geoprocess:
 ```sh
 <script>
     let contour = new GeoserviceFactory.Contour(       
@@ -19,6 +19,24 @@ The library compiled file is into "dist" directory.
     console.log(contour.getFields());
     contour
       .execute(-69.84479, -34.17065, -69.82531, -34.15469, 100)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((ex) => {
+        console.log(ex.message);
+      });
+</script>
+```
+
+3. Another example to consume Elevation Profile geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend project](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
+```sh
+<script>
+    let elevationProfile = new GeoserviceFactory.ElevationProfile(       
+      "http://127.0.0.1/geoprocess-backend/elevation-profile"
+    );
+    console.log(elevationProfile.getFields());
+    elevationProfile
+      .execute("-69.8994766897101 -32.895181037843,-69.8994766897102 -32.895181037844")
       .then((result) => {
         console.log(result);
       })
@@ -52,6 +70,7 @@ Allow to execute gs:Contour geoprocess from Geoserver
   - And a few other ES2015+ related rules
 - [Jest](https://jestjs.io) with [DOM Testing Library](https://testing-library.com/docs/dom-testing-library/intro)
 - [GitHub Action workflows](https://github.com/features/actions) set up to run tests and linting on push
+- [TurfJS](https://turfjs.org)
 
 ## Installation and build
 
