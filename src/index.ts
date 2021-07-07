@@ -1,4 +1,4 @@
-import Contour from "./application/ContourHandler";
-import SayHi from "./application/SayHi";
+import Contour from "./Contour/application/ContourHandler";
+import SayHi from "./Contour/application/SayHi";
 
 export { Contour, SayHi };

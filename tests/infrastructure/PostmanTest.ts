@@ -1,4 +1,4 @@
-import Postman from "../../src/domain/Postman";
+import Postman from "../../src/Shared/domain/Postman";
 
 export default class PostmanTest implements Postman {
   response = `

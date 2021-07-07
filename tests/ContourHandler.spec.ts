@@ -2,12 +2,16 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import ContourHandler from "../src/application/ContourHandler";
-import ContourService from "../src/application/ContourService";
+import ContourHandler from "../src/Contour/application/ContourHandler";
+import ContourService from "../src/Contour/application/ContourService";
+import TurfJSToleranceChecker from "../src/Contour/infraestructure/TurfJSToleranceChecker";
 import PostmanTest from "./infrastructure/PostmanTest";
 
 container.register("Postman", {
   useClass: PostmanTest,
+});
+container.register("ToleranceChecker", {
+  useClass: TurfJSToleranceChecker,
 });
 
 test("Get WPS Contour form", () => {

@@ -2,15 +2,19 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import Equidistance from "../domain/Equidistance";
-import Latitude from "../domain/Latitude";
-import Longitude from "../domain/Longitude";
-import wpsEndpoint from "../domain/WPSEndpoint";
-import PostmanHTTP from "../infrastructure/PostmanHTTP";
+import Equidistance from "../../Shared/domain/Equidistance";
+import Latitude from "../../Shared/domain/Latitude";
+import Longitude from "../../Shared/domain/Longitude";
+import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
+import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
+import TurfJSToleranceChecker from "../infraestructure/TurfJSToleranceChecker";
 import ContourService from "./ContourService";
 
 container.register("Postman", {
   useClass: PostmanHTTP,
+});
+container.register("ToleranceChecker", {
+  useClass: TurfJSToleranceChecker,
 });
 
 export default class ContourHandler {
