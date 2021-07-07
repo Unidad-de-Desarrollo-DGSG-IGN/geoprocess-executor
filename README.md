@@ -10,7 +10,7 @@ The library compiled file is into "dist" directory.
 <script src="main.js"></script>
 ```
 
-2. The entry point name is "GeoserviceFactory". From this entry point you can access to all classes. For example:
+2. The entry point name is "GeoserviceFactory". From this entry point you can access to all classes. For example, to consume Contour geoprocess:
 ```sh
 <script>
     let contour = new GeoserviceFactory.Contour(       
@@ -19,6 +19,24 @@ The library compiled file is into "dist" directory.
     console.log(contour.getFields());
     contour
       .execute(-69.84479, -34.17065, -69.82531, -34.15469, 100)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((ex) => {
+        console.log(ex.message);
+      });
+</script>
+```
+
+3. Another example to consume Elevation Profile geoprocess:
+```sh
+<script>
+    let elevationProfile = new GeoserviceFactory.ElevationProfile(       
+      "http://172.20.201.37/geoprocess-backend/elevation-profile"
+    );
+    console.log(elevationProfile.getFields());
+    elevationProfile
+      .execute("-69.8994766897101 -32.895181037843,-69.8994766897102 -32.895181037844")
       .then((result) => {
         console.log(result);
       })
