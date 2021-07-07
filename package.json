@@ -66,6 +66,7 @@
     "@turf/boolean-contains": "^6.4.0",
     "@turf/boolean-intersects": "^6.4.0",
     "@turf/helpers": "^6.4.0",
+    "@turf/length": "^6.4.0",
     "http-server": "^0.12.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.1.0",

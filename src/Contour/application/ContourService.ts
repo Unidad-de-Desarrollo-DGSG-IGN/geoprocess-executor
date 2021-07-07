@@ -41,6 +41,8 @@ export default class ContourService {
       wpsEndpoint
     );
 
+    this.ensureInputDataIsInTolerance(contour);
+
     return await this.postman.post(
       `${wpsEndpoint.value}&request=Execute&identifier=gs:Contour`,
       contour.xmlInput
