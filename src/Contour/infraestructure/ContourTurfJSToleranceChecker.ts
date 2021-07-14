@@ -6,10 +6,12 @@ import { injectable } from "tsyringe";
 import Latitude from "../../Shared/domain/Latitude";
 import Longitude from "../../Shared/domain/Longitude";
 import Contour from "../domain/Contour";
-import ToleranceChecker from "../domain/ToleranceChecker";
+import ContourToleranceChecker from "../domain/ContourToleranceChecker";
 
 @injectable()
-export default class TurfJSToleranceChecker implements ToleranceChecker {
+export default class ContourTurfJSToleranceChecker
+  implements ContourToleranceChecker
+{
   ensureInputDataIsInTolerance(contour: Contour): void {
     const inputPolygon = this.pointsToPolygon(
       contour.longitudeLower,

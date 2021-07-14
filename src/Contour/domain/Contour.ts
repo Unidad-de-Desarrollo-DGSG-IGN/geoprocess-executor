@@ -1,6 +1,7 @@
 import Equidistance from "../../Shared/domain/Equidistance";
 import Latitude from "../../Shared/domain/Latitude";
 import Longitude from "../../Shared/domain/Longitude";
+import StringValueObject from "../../Shared/domain/StringValueObject";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 
 export default class Contour {
@@ -10,6 +11,7 @@ export default class Contour {
   private _latitudeUpper: Latitude;
   private _equidistance: Equidistance;
   private _wpsEndpoint: wpsEndpoint;
+  private _baseRasterLayer: StringValueObject;
 
   static readonly MAX_AREA_ALLOWED = 100000000;
   static readonly MIN_VALLEY_EQUIDISTANCE_ALLOWED = 10;
@@ -47,6 +49,8 @@ export default class Contour {
     this._latitudeUpper = latitudeUpper;
     this._equidistance = equidistance;
     this._wpsEndpoint = wpsEndpoint;
+
+    this._baseRasterLayer = new StringValueObject("ign:alos_unificado");
   }
 
   public get longitudeLower(): Longitude {
@@ -86,7 +90,7 @@ export default class Contour {
         <wps:Reference mimeType="image/tiff" xlink:href="http://geoserver/wcs" method="POST">
           <wps:Body>
             <wcs:GetCoverage service="WCS" version="1.1.1">
-              <ows:Identifier>ign:alos_unificado</ows:Identifier>
+              <ows:Identifier>${this._baseRasterLayer.value}</ows:Identifier>
               <wcs:DomainSubset>
                 <ows:BoundingBox crs="http://www.opengis.net/gml/srs/epsg.xml#4326">
                   <ows:LowerCorner>${this._longitudeLower.value} ${this._latitudeLower.value}</ows:LowerCorner>

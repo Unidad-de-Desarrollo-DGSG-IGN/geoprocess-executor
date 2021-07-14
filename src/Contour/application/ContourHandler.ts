@@ -8,7 +8,7 @@ import Longitude from "../../Shared/domain/Longitude";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import Contour from "../domain/Contour";
-import TurfJSToleranceChecker from "../infraestructure/TurfJSToleranceChecker";
+import TurfJSToleranceChecker from "../infraestructure/ContourTurfJSToleranceChecker";
 import ContourService from "./ContourService";
 
 container.register("Postman", {

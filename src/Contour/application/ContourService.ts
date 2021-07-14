@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import Postman from "../../Shared/domain/Postman";
 import Contour from "../domain/Contour";
-import ToleranceChecker from "../domain/ToleranceChecker";
+import ToleranceChecker from "../domain/ContourToleranceChecker";
 
 @injectable()
 export default class ContourService {
