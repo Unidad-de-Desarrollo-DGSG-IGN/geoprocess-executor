@@ -46,6 +46,24 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
+3. Another example to consume Water Rise geoprocess:
+```sh
+<script>
+    let contour = new GeoserviceFactory.WaterRise(       
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+    );
+    console.log(contour.getFields());
+    contour
+      .execute(-69.84479, -34.17065, -69.82531, -34.15469, 2400)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((ex) => {
+        console.log(ex.message);
+      });
+</script>
+```
+
 ## Public classes and methods
 ### class Contour
 Allow to execute gs:Contour geoprocess from Geoserver
@@ -55,6 +73,24 @@ Allow to execute gs:Contour geoprocess from Geoserver
 - constructor(wpsEndpoint): when you generate a new instance of the class Contour, you must to indicate the WPS endpoind that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+
+### class ElevationProfile
+Allow to execute Elevation Profile geoprocess from Postgres
+
+**Methods**
+
+- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
+- getFields(): retrive an object indicating those geoprocess inputs.
+- async execute(lineString): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+
+### class WaterRise
+Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geoprocess from Geoserver
+
+**Methods**
+
+- constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind that you wish to use.
+- getFields(): retrive an object indicating those geoprocess inputs.
+- async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ## Used technology
 
