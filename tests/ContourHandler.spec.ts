@@ -4,10 +4,10 @@ import { container } from "tsyringe";
 
 import ContourHandler from "../src/Contour/application/ContourHandler";
 import ContourService from "../src/Contour/application/ContourService";
-import PostmanTest from "./infrastructure/PostmanTest";
+import ContourPostmanTest from "./infrastructure/ContourPostmanTest";
 
 container.register("Postman", {
-  useClass: PostmanTest,
+  useClass: ContourPostmanTest,
 });
 
 test("Get WPS Contour form", () => {
@@ -37,7 +37,7 @@ test("Get WPS Contour form", () => {
 });
 
 test("Execute succesful WPS Contour", async () => {
-  const postmanTest = new PostmanTest();
+  const postmanTest = new ContourPostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ContourService)
@@ -55,7 +55,7 @@ test("Execute succesful WPS Contour", async () => {
 });
 
 test("Execute succesful WPS Contour when request area touch higher and lower surface", async () => {
-  const postmanTest = new PostmanTest();
+  const postmanTest = new ContourPostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ContourService)

@@ -2,31 +2,31 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import Equidistance from "../../Shared/domain/Equidistance";
 import Latitude from "../../Shared/domain/Latitude";
+import Level from "../../Shared/domain/Level";
 import Longitude from "../../Shared/domain/Longitude";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
-import Contour from "../domain/Contour";
-import TurfJSToleranceChecker from "../infraestructure/ContourTurfJSToleranceChecker";
-import ContourService from "./ContourService";
+import WaterRise from "../domain/WaterRise";
+import WaterRiseTurfJSToleranceChecker from "../infraestructure/WaterRiseTurfJSToleranceChecker";
+import WaterRiseService from "./WaterRiseService";
 
 container.register("Postman", {
   useClass: PostmanHTTP,
 });
 container.register("ToleranceChecker", {
-  useClass: TurfJSToleranceChecker,
+  useClass: WaterRiseTurfJSToleranceChecker,
 });
 
-export default class ContourHandler {
+export default class WaterRiseHandler {
   private host: string;
-  private service: ContourService;
-  constructor(host: string, service?: ContourService) {
+  private service: WaterRiseService;
+  constructor(host: string, service?: WaterRiseService) {
     this.host = host;
     if (service) {
       this.service = service;
     } else {
-      this.service = container.resolve(ContourService);
+      this.service = container.resolve(WaterRiseService);
     }
   }
 
@@ -39,17 +39,17 @@ export default class ContourHandler {
     latitudeLower: number,
     longitudeUpper: number,
     latitudeUpper: number,
-    equidistance: number
+    level: number
   ): Promise<JSON> {
-    const contour: Contour = new Contour(
+    const waterRise: WaterRise = new WaterRise(
       new Longitude(longitudeLower),
       new Latitude(latitudeLower),
       new Longitude(longitudeUpper),
       new Latitude(latitudeUpper),
-      new Equidistance(equidistance),
+      new Level(level),
       new wpsEndpoint(this.host)
     );
 
-    return this.service.execute(contour);
+    return this.service.execute(waterRise);
   }
 }

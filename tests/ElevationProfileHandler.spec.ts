@@ -5,10 +5,10 @@ import { container } from "tsyringe";
 import ElevationProfileHandler from "../src/ElevationProfile/application/ElevationProfileHandler";
 import ElevationProfileService from "../src/ElevationProfile/application/ElevationProfileService";
 import TurfJSElevationProfileToleranceChecker from "../src/ElevationProfile/infraestructure/TurfJSElevationProfileToleranceChecker";
-import PostmanTest from "./infrastructure/PostmanTest";
+import ElevationProfilePostmanTest from "./infrastructure/ElevationProfilePostmanTest";
 
 container.register("Postman", {
-  useClass: PostmanTest,
+  useClass: ElevationProfilePostmanTest,
 });
 container.register("ElevationProfileToleranceChecker", {
   useClass: TurfJSElevationProfileToleranceChecker,
@@ -34,7 +34,7 @@ test("Get Elevation Profile form", () => {
 });
 
 test("Execute succesful Elevation Profile", async () => {
-  const postmanTest = new PostmanTest();
+  const postmanTest = new ElevationProfilePostmanTest();
   const elevationProfileHandler = new ElevationProfileHandler(
     "http://172.20.201.37/geoprocess-backend/elevation-profile",
     container.resolve(ElevationProfileService)
