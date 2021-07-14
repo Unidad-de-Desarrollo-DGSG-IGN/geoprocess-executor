@@ -1,6 +1,6 @@
 import Postman from "../../src/Shared/domain/Postman";
 
-export default class PostmanTest implements Postman {
+export default class ContourPostmanTest implements Postman {
   response = `
     {
      "type":"FeatureCollection",
