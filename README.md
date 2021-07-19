@@ -54,7 +54,7 @@ The library compiled file is into "dist" directory.
     );
     console.log(waterRise.getFields());
     waterRise
-      .execute(-69.8061, -34.1410, -69.8151, -34.1526, 2400)
+      .execute(-69.8061, -34.1410, -69.8151, -34.1526, 4000)
       .then((result) => {
         console.log(result);
       })
