@@ -18,7 +18,7 @@ The library compiled file is into "dist" directory.
     );
     console.log(contour.getFields());
     contour
-      .execute(-69.84479, -34.17065, -69.82531, -34.15469, 100)
+      .execute(-69.8061, -34.1410, -69.8151, -34.1526, 100)
       .then((result) => {
         console.log(result);
       })
@@ -54,7 +54,7 @@ The library compiled file is into "dist" directory.
     );
     console.log(waterRise.getFields());
     waterRise
-      .execute(-69.84479, -34.17065, -69.82531, -34.15469, 2400)
+      .execute(-69.8061, -34.1410, -69.8151, -34.1526, 2400)
       .then((result) => {
         console.log(result);
       })
