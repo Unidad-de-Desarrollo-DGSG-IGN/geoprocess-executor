@@ -32,6 +32,6 @@ export default class ElevationProfile {
   }
 
   public get jsonInput(): string {
-    return `{"line": "-69.8994766897101 -32.895181037843,-69.8331254451767 -32.8859011435027"}`;
+    return `{"line": "${this.line.toProcessString()}"}`;
   }
 }
