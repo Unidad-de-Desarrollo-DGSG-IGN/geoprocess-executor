@@ -37,4 +37,13 @@ export default class Line {
 
     return `[${points.join("],[")}]`;
   }
+
+  public toProcessString(): string {
+    const points: string[] = [];
+    this.value.forEach((point) => {
+      points.push(point.toProcessString());
+    });
+
+    return `${points.join(",")}`;
+  }
 }

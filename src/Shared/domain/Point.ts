@@ -17,4 +17,8 @@ export default class Point {
   public get toString(): string {
     return `${this._longitude.value},${this._latitude.value}`;
   }
+
+  public toProcessString(): string {
+    return `${this._longitude.value} ${this._latitude.value}`;
+  }
 }
