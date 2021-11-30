@@ -21,4 +21,12 @@ export default class Point {
   public toProcessString(): string {
     return `${this._longitude.value} ${this._latitude.value}`;
   }
+
+  public static createFromString(stringPoint: string): Point {
+    const arrayPoint: string[] = stringPoint.split(" ");
+    return new Point(
+      new Longitude(parseFloat(arrayPoint[0])),
+      new Latitude(parseFloat(arrayPoint[1]))
+    );
+  }
 }
