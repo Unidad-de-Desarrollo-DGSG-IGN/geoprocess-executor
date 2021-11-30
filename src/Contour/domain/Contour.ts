@@ -50,7 +50,7 @@ export default class Contour {
     this._equidistance = equidistance;
     this._wpsEndpoint = wpsEndpoint;
 
-    this._baseRasterLayer = new StringValueObject("ign:alos_unificado");
+    this._baseRasterLayer = new StringValueObject("geoprocess:alos_unificado");
   }
 
   public get longitudeLower(): Longitude {
