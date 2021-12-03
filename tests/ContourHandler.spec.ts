@@ -83,7 +83,7 @@ test("Execute WPS Contour and get Coordinates Exception", async () => {
     await contourHandler.execute(1, 1, 1, 1, 1);
   } catch (e) {
     expect(e instanceof RangeError).toBeTruthy();
-    expect(e.message).toEqual("The latitud must be between -74 and -52");
+    expect(e.message).toEqual("The longitude must be between -74 and -52");
   }
 });
 

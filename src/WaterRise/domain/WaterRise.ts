@@ -1,6 +1,4 @@
-import Latitude from "../../Shared/domain/Latitude";
 import Level from "../../Shared/domain/Level";
-import Longitude from "../../Shared/domain/Longitude";
 import Polygon from "../../Shared/domain/Polygon";
 import StringValueObject from "../../Shared/domain/StringValueObject";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
@@ -31,11 +29,7 @@ export default class WaterRise {
     ]`
   );
 
-  constructor(
-    polygon: Polygon,
-    level: Level,
-    wpsEndpoint: wpsEndpoint
-  ) {
+  constructor(polygon: Polygon, level: Level, wpsEndpoint: wpsEndpoint) {
     this._polygon = polygon;
     this._level = level;
     this._wpsEndpoint = wpsEndpoint;

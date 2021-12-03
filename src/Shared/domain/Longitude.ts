@@ -8,7 +8,7 @@ export default class Longitude extends NumberValueObject {
 
   private ensureIsValidLongitude(): void {
     if (this.value < -74 || this.value > -52) {
-      throw RangeError("The latitud must be between -74 and -52");
+      throw RangeError("The longitude must be between -74 and -52");
     }
   }
 }
