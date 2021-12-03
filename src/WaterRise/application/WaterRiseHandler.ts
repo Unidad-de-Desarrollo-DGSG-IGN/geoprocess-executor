@@ -2,9 +2,7 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import Latitude from "../../Shared/domain/Latitude";
 import Level from "../../Shared/domain/Level";
-import Longitude from "../../Shared/domain/Longitude";
 import Polygon from "../../Shared/domain/Polygon";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
