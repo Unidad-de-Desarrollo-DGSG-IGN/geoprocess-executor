@@ -1,14 +1,12 @@
 import Latitude from "../../Shared/domain/Latitude";
 import Level from "../../Shared/domain/Level";
 import Longitude from "../../Shared/domain/Longitude";
+import Polygon from "../../Shared/domain/Polygon";
 import StringValueObject from "../../Shared/domain/StringValueObject";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 
 export default class WaterRise {
-  private _longitudeLower: Longitude;
-  private _latitudeLower: Latitude;
-  private _longitudeUpper: Longitude;
-  private _latitudeUpper: Latitude;
+  private _polygon: Polygon;
   private _level: Level;
   private _wpsEndpoint: wpsEndpoint;
   private _baseRasterLayer: StringValueObject;
@@ -34,37 +32,19 @@ export default class WaterRise {
   );
 
   constructor(
-    longitudeLower: Longitude,
-    latitudeLower: Latitude,
-    longitudeUpper: Longitude,
-    latitudeUpper: Latitude,
+    polygon: Polygon,
     level: Level,
     wpsEndpoint: wpsEndpoint
   ) {
-    this._longitudeLower = longitudeLower;
-    this._latitudeLower = latitudeLower;
-    this._longitudeUpper = longitudeUpper;
-    this._latitudeUpper = latitudeUpper;
+    this._polygon = polygon;
     this._level = level;
     this._wpsEndpoint = wpsEndpoint;
 
     this._baseRasterLayer = new StringValueObject("geoprocess:alos_unificado");
   }
 
-  public get longitudeLower(): Longitude {
-    return this._longitudeLower;
-  }
-
-  public get latitudeLower(): Latitude {
-    return this._latitudeLower;
-  }
-
-  public get longitudeUpper(): Longitude {
-    return this._longitudeUpper;
-  }
-
-  public get latitudeUpper(): Latitude {
-    return this._latitudeUpper;
+  public get polygon(): Polygon {
+    return this._polygon;
   }
 
   public get level(): Level {
@@ -76,15 +56,7 @@ export default class WaterRise {
   }
 
   private rectangle(): string {
-    return `[
-      [
-        [${this.longitudeUpper.value}, ${this.latitudeUpper.value}],
-        [${this.longitudeUpper.value}, ${this.latitudeLower.value}],
-        [${this.longitudeLower.value}, ${this.latitudeLower.value}],
-        [${this.longitudeLower.value}, ${this.latitudeUpper.value}],
-        [${this.longitudeUpper.value}, ${this.latitudeUpper.value}],
-      ],
-    ]`;
+    return this._polygon.toString();
   }
 
   public get fullWpsEndpoint(): string {

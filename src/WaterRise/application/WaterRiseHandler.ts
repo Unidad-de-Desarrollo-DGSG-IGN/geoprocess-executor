@@ -5,6 +5,7 @@ import { container } from "tsyringe";
 import Latitude from "../../Shared/domain/Latitude";
 import Level from "../../Shared/domain/Level";
 import Longitude from "../../Shared/domain/Longitude";
+import Polygon from "../../Shared/domain/Polygon";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import WaterRise from "../domain/WaterRise";
@@ -35,17 +36,11 @@ export default class WaterRiseHandler {
   }
 
   async execute(
-    longitudeLower: number,
-    latitudeLower: number,
-    longitudeUpper: number,
-    latitudeUpper: number,
+    polygon: string,
     level: number
   ): Promise<JSON> {
     const waterRise: WaterRise = new WaterRise(
-      new Longitude(longitudeLower),
-      new Latitude(latitudeLower),
-      new Longitude(longitudeUpper),
-      new Latitude(latitudeUpper),
+      Polygon.createFromString(polygon),
       new Level(level),
       new wpsEndpoint(this.host)
     );
