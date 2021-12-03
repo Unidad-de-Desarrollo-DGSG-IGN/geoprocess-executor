@@ -64,6 +64,24 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
+5. Another example to consume Elevation of a single Point geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend project](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
+```sh
+<script>
+    let elevationOfPoint = new GeoserviceFactory.ElevationOfPoint(       
+      "http://127.0.0.1/geoprocess-backend/elevation-profile"
+    );
+    console.log(elevationOfPoint.getFields());
+    elevationProfile
+      .execute("-69.8994766897101 -32.895181037843")
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((ex) => {
+        console.log(ex.message);
+      });
+</script>
+```
+
 ## Public classes and methods
 ### class Contour
 Allow to execute gs:Contour geoprocess from Geoserver
@@ -91,6 +109,15 @@ Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geopr
 - constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+
+### class ElevationOfPoint
+Allow to execute Elevation of a single Point geoprocess from Postgres
+
+**Methods**
+
+- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
+- getFields(): retrive an object indicating those geoprocess inputs.
+- async execute(pointString): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ## Used technology
 
