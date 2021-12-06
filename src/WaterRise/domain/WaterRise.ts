@@ -109,6 +109,15 @@ export default class WaterRise {
         </wps:Reference>
       </wps:Input>
       <wps:Input>
+        <ows:Identifier>roi</ows:Identifier>
+        <wps:Data>
+            <wps:ComplexData mimeType="application/json"><![CDATA[{
+              "geometry": {
+              "type": "Polygon",
+              "coordinates": [ ${this.rectangle()} ] } }]]></wps:ComplexData>
+        </wps:Data>
+      </wps:Input>
+      <wps:Input>
         <ows:Identifier>band</ows:Identifier>
         <wps:Data>
           <wps:LiteralData>0</wps:LiteralData>
@@ -117,7 +126,7 @@ export default class WaterRise {
       <wps:Input>
         <ows:Identifier>ranges</ows:Identifier>
         <wps:Data>
-          <wps:LiteralData>[0;${this._level.value}]</wps:LiteralData>
+          <wps:LiteralData>[-9999;${this._level.value}]</wps:LiteralData>
         </wps:Data>
       </wps:Input>
     </wps:DataInputs>
