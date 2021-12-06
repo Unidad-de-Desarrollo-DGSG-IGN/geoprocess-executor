@@ -13,7 +13,7 @@ import WaterRiseService from "./WaterRiseService";
 container.register("Postman", {
   useClass: PostmanHTTP,
 });
-container.register("ToleranceChecker", {
+container.register("WaterRiseToleranceChecker", {
   useClass: WaterRiseTurfJSToleranceChecker,
 });
 

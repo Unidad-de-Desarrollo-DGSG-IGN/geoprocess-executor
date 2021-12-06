@@ -10,7 +10,8 @@ export default class WaterRiseService {
   private tolaranceChecker: WaterRiseToleranceChecker;
   constructor(
     @inject("Postman") postman: Postman,
-    @inject("ToleranceChecker") toleranceChecker: WaterRiseToleranceChecker
+    @inject("WaterRiseToleranceChecker")
+    toleranceChecker: WaterRiseToleranceChecker
   ) {
     this.postman = postman;
     this.tolaranceChecker = toleranceChecker;

@@ -10,7 +10,7 @@ export default class ContourService {
   private tolaranceChecker: ToleranceChecker;
   constructor(
     @inject("Postman") postman: Postman,
-    @inject("ToleranceChecker") toleranceChecker: ToleranceChecker
+    @inject("ContourToleranceChecker") toleranceChecker: ToleranceChecker
   ) {
     this.postman = postman;
     this.tolaranceChecker = toleranceChecker;
