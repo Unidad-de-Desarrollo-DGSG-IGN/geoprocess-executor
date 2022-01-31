@@ -25,8 +25,8 @@ export default class ElevationProfileService {
     this.ensureInputDataIsInTolerance(elevationProfile);
 
     return await this.postman.post(
-      elevationProfile.wpsEndpoint.value,
-      elevationProfile.jsonInput
+      elevationProfile.fullWpsEndpoint,
+      elevationProfile.xmlInput
     );
   }
 
