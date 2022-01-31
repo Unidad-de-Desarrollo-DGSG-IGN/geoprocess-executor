@@ -58,7 +58,7 @@ test("Execute Elevation Profile and get Coordinates Exception", async () => {
     await elevationProfileHandler.execute("1 1");
   } catch (e) {
     expect(e instanceof RangeError).toBeTruthy();
-    expect(e.message).toEqual("The latitud must be between -74 and -52");
+    expect(e.message).toEqual("The longitude must be between -74 and -52");
   }
 });
 

@@ -2,9 +2,8 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import Latitude from "../../Shared/domain/Latitude";
 import Level from "../../Shared/domain/Level";
-import Longitude from "../../Shared/domain/Longitude";
+import Polygon from "../../Shared/domain/Polygon";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import WaterRise from "../domain/WaterRise";
@@ -14,7 +13,7 @@ import WaterRiseService from "./WaterRiseService";
 container.register("Postman", {
   useClass: PostmanHTTP,
 });
-container.register("ToleranceChecker", {
+container.register("WaterRiseToleranceChecker", {
   useClass: WaterRiseTurfJSToleranceChecker,
 });
 
@@ -34,18 +33,9 @@ export default class WaterRiseHandler {
     return this.service.getFields();
   }
 
-  async execute(
-    longitudeLower: number,
-    latitudeLower: number,
-    longitudeUpper: number,
-    latitudeUpper: number,
-    level: number
-  ): Promise<JSON> {
+  async execute(polygon: string, level: number): Promise<JSON> {
     const waterRise: WaterRise = new WaterRise(
-      new Longitude(longitudeLower),
-      new Latitude(latitudeLower),
-      new Longitude(longitudeUpper),
-      new Latitude(latitudeUpper),
+      new Polygon(polygon),
       new Level(level),
       new wpsEndpoint(this.host)
     );
