@@ -1,20 +1,54 @@
 import Postman from "../../src/Shared/domain/Postman";
 
 export default class ElevationProfilePostmanTest implements Postman {
-  response = `
+  response3DLineString = `
   {
     "type":"LineString",
     "coordinates": [
-      [-69.89947669,-32.895181038,3744.307617188]
+      [-69.89947669,-32.895181038,3744.307617188],
+      [-69.89547669,-32.895131038,3744.307617188]
+    ]
+  }
+  `;
+  responseFeatureCollection = `
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [
+                -69.89947669,
+                -32.895181038
+              ],
+              [
+                -69.89547669,
+                -32.895131038
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "alos_unificado_value": 3744.307617188,
+          "INTERSECTION_ID": 0
+        },
+        "id": "0"
+      }
     ]
   }
   `;
   async post(url: string, content: string): Promise<JSON> {
     url;
     content;
-    return JSON.parse(this.response); // parses JSON response into native JavaScript objects
+    return JSON.parse(this.responseFeatureCollection); // parses JSON response into native JavaScript objects
   }
-  getResponseTest(): JSON {
-    return JSON.parse(this.response);
+  getResponseTestWith3DLineStringResponse(): JSON {
+    return JSON.parse(this.response3DLineString);
+  }
+  getResponseTestWithFeatureCollectionResponse(): JSON {
+    return JSON.parse(this.responseFeatureCollection);
   }
 }
