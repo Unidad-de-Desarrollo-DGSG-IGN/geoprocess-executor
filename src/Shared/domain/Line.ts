@@ -11,7 +11,12 @@ export default class Line {
 
   public static createFromString(stringLine: string): Line {
     const points: Point[] = [];
-    const arrayLine: string[] = stringLine.split(",");
+    const arrayLine: string[] = stringLine
+      .trim()
+      .replace("\n", "")
+      .replace("  ", " ")
+      .replace("  ", " ")
+      .split(",");
     arrayLine.forEach((stringPoint) => {
       const arrayPoint: string[] = stringPoint.trim().split(" ");
       points.push(

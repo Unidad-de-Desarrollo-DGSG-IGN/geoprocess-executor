@@ -58,14 +58,11 @@ The library compiled file is into "dist" directory.
     console.log(waterRise.getFields());
     waterRise
       .execute(
-        `{
-          "type": "FeatureCollection",
-          "name": "test",
-          "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-          "features": [
-            { "type": "Feature", "properties": { }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -69.696212581553127, -34.207204894110262 ], [ -69.799409776448044, -34.220104543472132 ], [ -69.799789090436576, -34.110482800785661 ], [ -69.717829710947697, -34.13467138556318 ], [ -69.696212581553127, -34.207204894110262 ] ] ] } }
-          ]
-        }`,
+        `-69.696212581553127 -34.207204894110262,
+         -69.799409776448044 -34.220104543472132,
+         -69.799789090436576 -34.110482800785661,
+         -69.717829710947697 -34.13467138556318,
+         -69.696212581553127 -34.207204894110262`,
         3316
       )
       .then((result) => {
@@ -121,7 +118,7 @@ Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geopr
 
 - constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
-- async execute(polygon_as_geojson, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+- async execute(polygonString, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationOfPoint
 Allow to execute Elevation of a single Point geoprocess from Postgres.

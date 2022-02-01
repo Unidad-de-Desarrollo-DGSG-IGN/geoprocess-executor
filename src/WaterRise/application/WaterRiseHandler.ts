@@ -35,7 +35,7 @@ export default class WaterRiseHandler {
 
   async execute(polygon: string, level: number): Promise<JSON> {
     const waterRise: WaterRise = new WaterRise(
-      new Polygon(polygon),
+      Polygon.createFromString(polygon),
       new Level(level),
       new wpsEndpoint(this.host)
     );
