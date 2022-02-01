@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { container } from "tsyringe";
 
 import ElevationProfileHandler from "../src/ElevationProfile/application/ElevationProfileHandler";
+import { ElevationProfileResponseType } from "../src/ElevationProfile/application/ElevationProfileResponseType";
 import ElevationProfileService from "../src/ElevationProfile/application/ElevationProfileService";
 import TurfJSElevationProfileToleranceChecker from "../src/ElevationProfile/infraestructure/TurfJSElevationProfileToleranceChecker";
 import ElevationProfilePostmanTest from "./infrastructure/ElevationProfilePostmanTest";
@@ -16,7 +17,7 @@ container.register("ElevationProfileToleranceChecker", {
 
 test("Get Elevation Profile form", () => {
   const elevationProfileHandler = new ElevationProfileHandler(
-    "http://172.20.201.37/geoprocess-backend/elevation-profile",
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ElevationProfileService)
   );
   const expectedFields = JSON.parse(
@@ -33,10 +34,10 @@ test("Get Elevation Profile form", () => {
   expect(elevationProfileHandler.getFields()).toEqual(expectedFields);
 });
 
-test("Execute succesful Elevation Profile", async () => {
+test("Execute succesful Elevation Profile with 3D LineString response", async () => {
   const postmanTest = new ElevationProfilePostmanTest();
   const elevationProfileHandler = new ElevationProfileHandler(
-    "http://172.20.201.37/geoprocess-backend/elevation-profile",
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ElevationProfileService)
   );
 
@@ -44,12 +45,29 @@ test("Execute succesful Elevation Profile", async () => {
   const result = await elevationProfileHandler.execute(
     "-69.8994766897101 -32.895181037843,-69.8994766897102 -32.895181037844"
   );
-  expect(result).toEqual(postmanTest.getResponseTest());
+  expect(result).toEqual(postmanTest.getResponseTestWith3DLineStringResponse());
+});
+
+test("Execute succesful Elevation Profile with Feature Collection response", async () => {
+  const postmanTest = new ElevationProfilePostmanTest();
+  const elevationProfileHandler = new ElevationProfileHandler(
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    container.resolve(ElevationProfileService)
+  );
+
+  expect.assertions(1);
+  const result = await elevationProfileHandler.execute(
+    "-69.8994766897101 -32.895181037843,-69.8994766897102 -32.895181037844",
+    ElevationProfileResponseType.FeatureCollectionOfLines
+  );
+  expect(result).toEqual(
+    postmanTest.getResponseTestWithFeatureCollectionResponse()
+  );
 });
 
 test("Execute Elevation Profile and get Coordinates Exception", async () => {
   const elevationProfileHandler = new ElevationProfileHandler(
-    "http://172.20.201.37/geoprocess-backend/elevation-profile",
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ElevationProfileService)
   );
 

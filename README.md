@@ -28,7 +28,7 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
-3. Another example to consume Elevation Profile geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend project](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
+3. Another example to consume Elevation Profile geoprocess (the second parameter is optional, the default value is GeoserviceFactory.ElevationProfileResponseType.LineString3D ):
 ```js
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
@@ -36,7 +36,10 @@ The library compiled file is into "dist" directory.
     );
     console.log(elevationProfile.getFields());
     elevationProfile
-      .execute("-69.8994766897101 -32.895181037843,-69.8994766897102 -32.895181037844")
+      .execute(
+        "-69.8994766897101 -32.895181037843,-69.8994766897102 -32.895181037844",
+        GeoserviceFactory.ElevationProfileResponseType.LineString3D
+      )
       .then((result) => {
         console.log(result);
       })
@@ -94,7 +97,7 @@ The library compiled file is into "dist" directory.
 
 ## Public classes and methods
 ### class Contour
-Allow to execute gs:Contour geoprocess from Geoserver
+Allow to execute gs:Contour geoprocess from Geoserver.
 
 **Methods**
 
@@ -103,16 +106,16 @@ Allow to execute gs:Contour geoprocess from Geoserver
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationProfile
-Allow to execute Elevation Profile geoprocess from Postgres
+Allow to execute Elevation Profile geoprocess from Postgres.
 
 **Methods**
 
 - constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
-- async execute(lineString): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+- async execute(lineString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "LineString3D" (return a GeoJson with 3D LineString, the Z dimension is height) or "FeatureCollectionOfLines" (returns the height like a parameter of the Line). The default value is LineString3D.
 
 ### class WaterRise
-Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geoprocess from Geoserver
+Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geoprocess from Geoserver.
 
 **Methods**
 
@@ -121,7 +124,7 @@ Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geopr
 - async execute(polygon_as_geojson, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationOfPoint
-Allow to execute Elevation of a single Point geoprocess from Postgres
+Allow to execute Elevation of a single Point geoprocess from Postgres.
 
 **Methods**
 
