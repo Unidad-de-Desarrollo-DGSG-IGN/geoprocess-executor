@@ -7,6 +7,7 @@ import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import ElevationProfile from "../domain/ElevationProfile";
 import TurfJSElevationProfileToleranceChecker from "../infraestructure/TurfJSElevationProfileToleranceChecker";
+import { ElevationProfileResponseType } from "./ElevationProfileResponseType";
 import ElevationProfileService from "./ElevationProfileService";
 
 container.register("Postman", {
@@ -32,12 +33,15 @@ export default class ElevationProfileHandler {
     return this.service.getFields();
   }
 
-  async execute(line: string): Promise<JSON> {
+  async execute(
+    line: string,
+    responseType = ElevationProfileResponseType.LineString3D
+  ): Promise<JSON> {
     const elevationProfile: ElevationProfile = new ElevationProfile(
       Line.createFromString(line),
       new wpsEndpoint(this.host)
     );
 
-    return this.service.execute(elevationProfile);
+    return this.service.execute(elevationProfile, responseType);
   }
 }
