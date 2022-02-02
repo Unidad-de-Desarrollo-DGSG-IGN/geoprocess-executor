@@ -37,7 +37,7 @@ export default class ElevationProfileService {
     if (
       responseType === ElevationProfileResponseType.FeatureCollectionOfLines
     ) {
-      return postmanResponse;
+      return this.replacePropertyHeightName(postmanResponse);
     }
 
     const featureCollection: GeoJson = postmanResponse;
@@ -70,6 +70,12 @@ export default class ElevationProfileService {
 
     return JSON.parse(
       '{ "type": "LineString", "coordinates": [' + xyz.join(",") + "] }"
+    );
+  }
+
+  replacePropertyHeightName(postmanResponse: any): JSON {
+    return JSON.parse(
+      JSON.stringify(postmanResponse).replace("alos_unificado_value", "height")
     );
   }
 }
