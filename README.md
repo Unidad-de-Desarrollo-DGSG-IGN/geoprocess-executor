@@ -74,15 +74,17 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
-5. Another example to consume Elevation of a single Point geoprocess (to get more info about "elevation-profile" service, go to [Geoprocess Backend project](https://github.com/Unidad-de-Desarrollo-DGSG-IGN/geoprocess-backend)):
+5. Another example to consume Elevation of a single Point geoprocess:
 ```js
 <script>
     let elevationOfPoint = new GeoserviceFactory.ElevationOfPoint(       
-      "http://127.0.0.1/geoprocess-backend/elevation-profile"
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
     );
     console.log(elevationOfPoint.getFields());
     elevationProfile
-      .execute("-69.8994766897101 -32.895181037843")
+      .execute(
+        "-69.8994766897101 -32.895181037843",
+        GeoserviceFactory.ElevationOfPointResponseType.Point3D)
       .then((result) => {
         console.log(result);
       })
@@ -103,7 +105,7 @@ Allow to execute gs:Contour geoprocess from Geoserver.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationProfile
-Allow to execute Elevation Profile geoprocess from Postgres.
+Allow to execute Elevation Profile  concatenating geoprocess from Geoserver.
 
 **Methods**
 
@@ -121,13 +123,13 @@ Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geopr
 - async execute(polygonString, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationOfPoint
-Allow to execute Elevation of a single Point geoprocess from Postgres.
+Allow to execute Elevation of a single Point  concatenating geoprocess from Geoserver.
 
 **Methods**
 
 - constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
-- async execute(pointString): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+- async execute(pointString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "Point3D" (return a GeoJson with 3D Point, the Z dimension is height) or "FeatureCollectionOfPoint" (returns the height like a parameter of the Line). The default value is Point3D.
 
 ## Used technology
 
