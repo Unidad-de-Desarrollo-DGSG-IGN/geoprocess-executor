@@ -3,6 +3,7 @@ import { inject, injectable } from "tsyringe";
 import Postman from "../../Shared/domain/Postman";
 import ElevationOfPoint from "../domain/ElevationOfPoint";
 import ElevationOfPointToleranceChecker from "../domain/ElevationOfPointToleranceChecker";
+import { ElevationOfPointResponseType } from "./ElevationOfPointResponseType";
 
 @injectable()
 export default class ElevationOfPointService {
@@ -21,16 +22,69 @@ export default class ElevationOfPointService {
     return ElevationOfPoint.FIELDS;
   }
 
-  async execute(elevationOfPoint: ElevationOfPoint): Promise<JSON> {
+  async execute(
+    elevationOfPoint: ElevationOfPoint,
+    responseType: ElevationOfPointResponseType
+  ): Promise<JSON> {
     this.ensureInputDataIsInTolerance(elevationOfPoint);
 
-    return await this.postman.post(
+    const postmanResponse: any = await this.postman.post(
       elevationOfPoint.wpsEndpoint.value,
-      elevationOfPoint.jsonInput
+      elevationOfPoint.xmlInput
+    );
+
+    if (
+      responseType === ElevationOfPointResponseType.FeatureCollectionOfPoint
+    ) {
+      return this.postmanResponseToFeatureCollection(
+        elevationOfPoint.toString,
+        postmanResponse
+      );;
+    }
+
+    return this.postmanResponseToPoint3D(
+      elevationOfPoint.toString,
+      postmanResponse
     );
   }
 
   ensureInputDataIsInTolerance(elevationOfPoint: ElevationOfPoint): void {
     this.tolaranceChecker.ensureInputDataIsInTolerance(elevationOfPoint);
+  }
+
+  postmanResponseToPoint3D(point2D: string, postmanResponse: any): JSON {
+    return JSON.parse(
+      '{ "type": "Point", "coordinates": [' +
+        point2D +
+        "," +
+        postmanResponse.features[0].properties.alos_unificado_value +
+        "] }"
+    );
+  }
+
+  postmanResponseToFeatureCollection(
+    point2D: string,
+    postmanResponse: any
+  ): JSON {
+    return JSON.parse(
+      `{
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                ${point2D}
+              ]
+            },
+            "properties": {
+              "height": ${postmanResponse.features[0].properties.alos_unificado_value}
+            },
+            "id": "0"
+          }
+        ]
+      }`
+    );
   }
 }

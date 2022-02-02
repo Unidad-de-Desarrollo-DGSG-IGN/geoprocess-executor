@@ -16,7 +16,7 @@ container.register("ElevationOfPointToleranceChecker", {
 
 test("Get Elevation of Point form", () => {
   const elevationOfPointHandler = new ElevationOfPointHandler(
-    "http://172.20.201.37/geoprocess-backend/elevation-profile",
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ElevationOfPointService)
   );
   const expectedFields = JSON.parse(
@@ -35,7 +35,7 @@ test("Get Elevation of Point form", () => {
 test("Execute succesful Elevation of Point", async () => {
   const postmanTest = new ElevationOfPointPostmanTest();
   const elevationOfPointHandler = new ElevationOfPointHandler(
-    "http://172.20.201.37/geoprocess-backend/elevation-profile",
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ElevationOfPointService)
   );
 
@@ -48,7 +48,7 @@ test("Execute succesful Elevation of Point", async () => {
 
 test("Execute Elevation of Point and get Coordinates Exception", async () => {
   const elevationOfPointHandler = new ElevationOfPointHandler(
-    "http://172.20.201.37/geoprocess-backend/elevation-profile",
+    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
     container.resolve(ElevationOfPointService)
   );
 
@@ -60,22 +60,3 @@ test("Execute Elevation of Point and get Coordinates Exception", async () => {
     expect(e.message).toEqual("The longitude must be between -74 and -52");
   }
 });
-
-// test("Execute Elevation of Point and get Line Lenght Exception", async () => {
-//   const elevationOfPointHandler = new ElevationOfPointHandler(
-//     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
-//     container.resolve(ElevationOfPointService)
-//   );
-
-//   expect.assertions(2);
-//   try {
-//     await elevationOfPointHandler.execute(
-//       "-62.781702786449884 -26.24742367352862"
-//     );
-//   } catch (e) {
-//     expect(e instanceof RangeError).toBeTruthy();
-//     expect(e.message).toEqual(
-//       "The line length requested must be less than 100km"
-//     );
-//   }
-// });

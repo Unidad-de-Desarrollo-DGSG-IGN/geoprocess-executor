@@ -7,6 +7,7 @@ import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import ElevationOfPoint from "../domain/ElevationOfPoint";
 import TurfJSElevationOfPointToleranceChecker from "../infraestructure/TurfJSElevationOfPointToleranceChecker";
+import { ElevationOfPointResponseType } from "./ElevationOfPointResponseType";
 import ElevationOfPointService from "./ElevationOfPointService";
 
 container.register("Postman", {
@@ -32,12 +33,15 @@ export default class ElevationOfPointHandler {
     return this.service.getFields();
   }
 
-  async execute(point: string): Promise<JSON> {
+  async execute(
+    point: string,
+    responseType = ElevationOfPointResponseType.Point3D
+  ): Promise<JSON> {
     const elevationOfPoint: ElevationOfPoint = new ElevationOfPoint(
       Point.createFromString(point),
       new wpsEndpoint(this.host)
     );
 
-    return this.service.execute(elevationOfPoint);
+    return this.service.execute(elevationOfPoint, responseType);
   }
 }
