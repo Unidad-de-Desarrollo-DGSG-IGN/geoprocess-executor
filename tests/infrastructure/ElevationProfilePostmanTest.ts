@@ -40,6 +40,37 @@ export default class ElevationProfilePostmanTest implements Postman {
     ]
   }
   `;
+
+  responseFeatureCollectionWithHeightProperty = `
+  {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [
+                -69.89947669,
+                -32.895181038
+              ],
+              [
+                -69.89547669,
+                -32.895131038
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "height": 3744.307617188,
+          "INTERSECTION_ID": 0
+        },
+        "id": "0"
+      }
+    ]
+  }
+  `;
   async post(url: string, content: string): Promise<JSON> {
     url;
     content;
@@ -50,5 +81,8 @@ export default class ElevationProfilePostmanTest implements Postman {
   }
   getResponseTestWithFeatureCollectionResponse(): JSON {
     return JSON.parse(this.responseFeatureCollection);
+  }
+  getResponseTestWithFeatureCollectionWithHeightPropertyResponse(): JSON {
+    return JSON.parse(this.responseFeatureCollectionWithHeightProperty);
   }
 }

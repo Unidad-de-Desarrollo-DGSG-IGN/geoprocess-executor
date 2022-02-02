@@ -39,7 +39,7 @@ export default class ElevationOfPointService {
       return this.postmanResponseToFeatureCollection(
         elevationOfPoint.toString,
         postmanResponse
-      );;
+      );
     }
 
     return this.postmanResponseToPoint3D(

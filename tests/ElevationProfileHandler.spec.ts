@@ -61,7 +61,7 @@ test("Execute succesful Elevation Profile with Feature Collection response", asy
     ElevationProfileResponseType.FeatureCollectionOfLines
   );
   expect(result).toEqual(
-    postmanTest.getResponseTestWithFeatureCollectionResponse()
+    postmanTest.getResponseTestWithFeatureCollectionWithHeightPropertyResponse()
   );
 });
 
