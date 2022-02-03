@@ -96,7 +96,7 @@ The library compiled file is into "dist" directory.
 
 ## Public classes and methods
 ### class Contour
-Allow to execute gs:Contour geoprocess from Geoserver.
+Generates the contour lines of the area given two coordinates (lower left lat/lon and upper right lat/lon) and an equidistance.
 
 **Methods**
 
@@ -105,7 +105,7 @@ Allow to execute gs:Contour geoprocess from Geoserver.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationProfile
-Allow to execute Elevation Profile  concatenating geoprocess from Geoserver.
+Add the height data given a line.
 
 **Methods**
 
@@ -114,7 +114,7 @@ Allow to execute Elevation Profile  concatenating geoprocess from Geoserver.
 - async execute(lineString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "LineString3D" (return a GeoJson with 3D LineString, the Z dimension is height) or "FeatureCollectionOfLines" (returns the height like a parameter of the Line). The default value is LineString3D.
 
 ### class WaterRise
-Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geoprocess from Geoserver.
+Generates a polygon of an area containing all height less than the requested height.
 
 **Methods**
 
@@ -123,13 +123,29 @@ Allow to execute ras:CropCoverage and ras:PolygonExtraction (concatenated) geopr
 - async execute(polygonString, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
 ### class ElevationOfPoint
-Allow to execute Elevation of a single Point  concatenating geoprocess from Geoserver.
+Add the height data given a point.
 
 **Methods**
 
 - constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(pointString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "Point3D" (return a GeoJson with 3D Point, the Z dimension is height) or "FeatureCollectionOfPoint" (returns the height like a parameter of the Line). The default value is Point3D.
+
+## How this uses Geoserver WPS
+
+The library uses the Geoserver WPS service. Each geoprocess concatenates the WPS requests necessary to carry out its objective. The WPS requests used in each geoprocess are shown below:
+
+### Contour sequence diagram
+![Contour sequence diagram](/docs/ContourSequence.png)
+
+### Elevation Profile sequence diagram
+![Contour sequence diagram](/docs/ElevationProfileSequence.png)
+
+### Water Rise sequence diagram
+![Contour sequence diagram](/docs/WaterRiseSequence.png)
+
+### Elevation Of Point sequence diagram
+![Contour sequence diagram](/docs/ElevationOfPointSequence.png)
 
 ## Used technology
 
