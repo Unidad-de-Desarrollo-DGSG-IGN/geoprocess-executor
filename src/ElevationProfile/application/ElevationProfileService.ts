@@ -34,14 +34,7 @@ export default class ElevationProfileService {
       elevationProfile.xmlInput
     );
 
-    if (
-      responseType === ElevationProfileResponseType.FeatureCollectionOfLines
-    ) {
-      return this.replacePropertyHeightName(postmanResponse);
-    }
-
-    const featureCollection: GeoJson = postmanResponse;
-    return this.geoJsonFeatureCollectionToLineString3D(featureCollection);
+    return this.formatResponse(postmanResponse, responseType);
   }
 
   ensureInputDataIsInTolerance(elevationProfile: ElevationProfile): void {
@@ -77,5 +70,19 @@ export default class ElevationProfileService {
     return JSON.parse(
       JSON.stringify(postmanResponse).replace("alos_unificado_value", "height")
     );
+  }
+
+  formatResponse(
+    postmanResponse: any,
+    responseType: ElevationProfileResponseType
+  ): JSON {
+    if (
+      responseType === ElevationProfileResponseType.FeatureCollectionOfLines
+    ) {
+      return this.replacePropertyHeightName(postmanResponse);
+    }
+
+    const featureCollection: GeoJson = postmanResponse;
+    return this.geoJsonFeatureCollectionToLineString3D(featureCollection);
   }
 }
