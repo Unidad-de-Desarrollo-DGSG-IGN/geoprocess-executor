@@ -103,35 +103,11 @@ export default class ElevationProfile {
                                       <wps:DataInputs>
                                         <wps:Input>
                                           <ows:Identifier>geom</ows:Identifier>
-                                          <wps:Reference mimeType="application/json" xlink:href="http://geoserver/wps" method="POST">
-                                            <wps:Body>
-    
-    
-                                              <!-- Envelope -->
-                                              <wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
-                                                <ows:Identifier>geo:envelope</ows:Identifier>
-                                                <wps:DataInputs>
-                                                  <wps:Input>
-                                                    <ows:Identifier>geom</ows:Identifier>
-                                                    <wps:Data>
-                                                      <wps:ComplexData mimeType="application/json"><![CDATA[{
-                                              "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}]
-                                              } }]]></wps:ComplexData>
-                                                    </wps:Data>
-                                                  </wps:Input>
-                                                </wps:DataInputs>
-                                                <wps:ResponseForm>
-                                                  <wps:RawDataOutput mimeType="application/json">
-                                                    <ows:Identifier>result</ows:Identifier>
-                                                  </wps:RawDataOutput>
-                                                </wps:ResponseForm>
-                                              </wps:Execute>
-                                              <!-- /Envelope -->
-    
-    
-    
-                                            </wps:Body>
-                                          </wps:Reference>
+                                          <wps:Data>
+                                            <wps:ComplexData mimeType="application/json"><![CDATA[{
+                                    "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}]
+                                    } }]]></wps:ComplexData>
+                                          </wps:Data>
                                         </wps:Input>
                                         <wps:Input>
                                           <ows:Identifier>distance</ows:Identifier>
@@ -182,35 +158,11 @@ export default class ElevationProfile {
                             <wps:DataInputs>
                               <wps:Input>
                                 <ows:Identifier>geom</ows:Identifier>
-                                <wps:Reference mimeType="application/json" xlink:href="http://geoserver/wps" method="POST">
-                                  <wps:Body>
-    
-    
-                                    <!-- Envelope -->
-                                    <wps:Execute version="1.0.0" service="WPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/wps/1.0.0" xmlns:wfs="http://www.opengis.net/wfs" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:wcs="http://www.opengis.net/wcs/1.1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
-                                      <ows:Identifier>geo:envelope</ows:Identifier>
-                                      <wps:DataInputs>
-                                        <wps:Input>
-                                          <ows:Identifier>geom</ows:Identifier>
-                                          <wps:Data>
-                                            <wps:ComplexData mimeType="application/json"><![CDATA[{
-                                    "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}]
-                                    } }]]></wps:ComplexData>
-                                          </wps:Data>
-                                        </wps:Input>
-                                      </wps:DataInputs>
-                                      <wps:ResponseForm>
-                                        <wps:RawDataOutput mimeType="application/json">
-                                          <ows:Identifier>result</ows:Identifier>
-                                        </wps:RawDataOutput>
-                                      </wps:ResponseForm>
-                                    </wps:Execute>
-                                    <!-- /Envelope -->
-    
-    
-    
-                                  </wps:Body>
-                                </wps:Reference>
+                                <wps:Data>
+                                  <wps:ComplexData mimeType="application/json"><![CDATA[{
+                          "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}]
+                          } }]]></wps:ComplexData>
+                                </wps:Data>
                               </wps:Input>
                               <wps:Input>
                                 <ows:Identifier>distance</ows:Identifier>
