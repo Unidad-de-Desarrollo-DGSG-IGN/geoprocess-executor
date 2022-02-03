@@ -33,18 +33,10 @@ export default class ElevationOfPointService {
       elevationOfPoint.xmlInput
     );
 
-    if (
-      responseType === ElevationOfPointResponseType.FeatureCollectionOfPoint
-    ) {
-      return this.postmanResponseToFeatureCollection(
-        elevationOfPoint.toString,
-        postmanResponse
-      );
-    }
-
-    return this.postmanResponseToPoint3D(
+    return this.formatResponse(
       elevationOfPoint.toString,
-      postmanResponse
+      postmanResponse,
+      responseType
     );
   }
 
@@ -86,5 +78,19 @@ export default class ElevationOfPointService {
         ]
       }`
     );
+  }
+
+  formatResponse(
+    point2D: string,
+    postmanResponse: any,
+    responseType: ElevationOfPointResponseType
+  ): JSON {
+    if (
+      responseType === ElevationOfPointResponseType.FeatureCollectionOfPoint
+    ) {
+      return this.postmanResponseToFeatureCollection(point2D, postmanResponse);
+    }
+
+    return this.postmanResponseToPoint3D(point2D, postmanResponse);
   }
 }
