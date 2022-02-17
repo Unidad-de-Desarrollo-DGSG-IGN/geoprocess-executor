@@ -5,9 +5,11 @@ import { container } from "tsyringe";
 import Equidistance from "../../Shared/domain/Equidistance";
 import Latitude from "../../Shared/domain/Latitude";
 import Longitude from "../../Shared/domain/Longitude";
+import Polygon from "../../Shared/domain/Polygon";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import Contour from "../domain/Contour";
+import ContourV2 from "../domain/ContourV2";
 import TurfJSContourToleranceChecker from "../infraestructure/ContourTurfJSToleranceChecker";
 import ContourService from "./ContourService";
 
@@ -51,5 +53,15 @@ export default class ContourHandler {
     );
 
     return this.service.execute(contour);
+  }
+
+  async executeV2(polygon: string, equidistance: number): Promise<JSON> {
+    const contour: ContourV2 = new ContourV2(
+      Polygon.createFromString(polygon),
+      new Equidistance(equidistance),
+      new wpsEndpoint(this.host)
+    );
+
+    return this.service.executeV2(contour);
   }
 }
