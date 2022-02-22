@@ -1,8 +1,10 @@
 import Line from "../../Shared/domain/Line";
+import Point from "../../Shared/domain/Point";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 
 export default class ElevationProfile {
   private _line: Line;
+  private _linePoints: Point[];
   private _wpsEndpoint: wpsEndpoint;
 
   static readonly MAX_LENGHT_ALLOWED = 100;
@@ -18,13 +20,18 @@ export default class ElevationProfile {
     ]`
   );
 
-  constructor(line: Line, wpsEndpoint: wpsEndpoint) {
+  constructor(line: Line, linePoints: Point[], wpsEndpoint: wpsEndpoint) {
     this._line = line;
+    this._linePoints = linePoints;
     this._wpsEndpoint = wpsEndpoint;
   }
 
   public get line(): Line {
     return this._line;
+  }
+
+  public get linePoints(): Point[] {
+    return this._linePoints;
   }
 
   public get wpsEndpoint(): wpsEndpoint {
