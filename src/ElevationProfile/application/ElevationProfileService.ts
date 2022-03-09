@@ -28,7 +28,7 @@ export default class ElevationProfileService {
     responseType: ElevationProfileResponseType
   ): Promise<JSON> {
     this.ensureInputDataIsInTolerance(elevationProfile);
-
+    console.log(elevationProfile.xmlInput);
     const postmanResponse: any = await this.postman.post(
       elevationProfile.fullWpsEndpoint,
       elevationProfile.xmlInput

@@ -5,6 +5,7 @@ import { container } from "tsyringe";
 import Line from "../../Shared/domain/Line";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
+import TurfJSLineToPointsInterval from "../../Shared/infrastructure/TurfJSLineToPointsInterval";
 import ElevationProfile from "../domain/ElevationProfile";
 import TurfJSElevationProfileToleranceChecker from "../infraestructure/TurfJSElevationProfileToleranceChecker";
 import { ElevationProfileResponseType } from "./ElevationProfileResponseType";
@@ -22,6 +23,7 @@ export default class ElevationProfileHandler {
   private service: ElevationProfileService;
   constructor(host: string, service?: ElevationProfileService) {
     this.host = host;
+    this.lineToPoint = container.resolve(TurfJSLineToPointsInterval);
     if (service) {
       this.service = service;
     } else {

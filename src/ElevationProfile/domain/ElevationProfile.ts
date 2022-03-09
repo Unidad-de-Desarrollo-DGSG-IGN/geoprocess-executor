@@ -1,8 +1,10 @@
 import Line from "../../Shared/domain/Line";
+import MultiPoint from "../../Shared/domain/MultiPoint";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 
 export default class ElevationProfile {
   private _line: Line;
+  private _linePoints: MultiPoint;
   private _wpsEndpoint: wpsEndpoint;
 
   static readonly MAX_LENGHT_ALLOWED = 100;
@@ -18,13 +20,17 @@ export default class ElevationProfile {
     ]`
   );
 
-  constructor(line: Line, wpsEndpoint: wpsEndpoint) {
+  constructor(line: Line, linePoints: MultiPoint, wpsEndpoint: wpsEndpoint) {
     this._line = line;
     this._wpsEndpoint = wpsEndpoint;
   }
 
   public get line(): Line {
     return this._line;
+  }
+
+  public get linePoints(): MultiPoint {
+    return this._linePoints;
   }
 
   public get wpsEndpoint(): wpsEndpoint {
@@ -48,7 +54,7 @@ export default class ElevationProfile {
           <wps:Data>
             <wps:ComplexData mimeType="application/json"><![CDATA[{
               "features": [
-              { "type": "Feature", "properties": { }, "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}] } }
+              { "type": "Feature", "properties": { }, "geometry": { "type": "multipoint", "coordinates": [${this._linePoints.toJSONFeatureCollection()}] } }
               ]
               }]]></wps:ComplexData>
           </wps:Data>
@@ -105,7 +111,7 @@ export default class ElevationProfile {
                                           <ows:Identifier>geom</ows:Identifier>
                                           <wps:Data>
                                             <wps:ComplexData mimeType="application/json"><![CDATA[{
-                                    "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}]
+                                    "geometry": { "type": "MultiPoint", "coordinates": [${this._linePoints.toString()}]
                                     } }]]></wps:ComplexData>
                                           </wps:Data>
                                         </wps:Input>
@@ -160,7 +166,7 @@ export default class ElevationProfile {
                                 <ows:Identifier>geom</ows:Identifier>
                                 <wps:Data>
                                   <wps:ComplexData mimeType="application/json"><![CDATA[{
-                          "geometry": { "type": "LineString", "coordinates": [${this._line.toString()}]
+                          "geometry": { "type": "MultiPoint", "coordinates": [${this._linePoints.toString()}]
                           } }]]></wps:ComplexData>
                                 </wps:Data>
                               </wps:Input>
