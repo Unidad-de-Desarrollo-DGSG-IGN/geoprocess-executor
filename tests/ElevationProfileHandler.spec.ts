@@ -6,10 +6,14 @@ import ElevationProfileHandler from "../src/ElevationProfile/application/Elevati
 import { ElevationProfileResponseType } from "../src/ElevationProfile/application/ElevationProfileResponseType";
 import ElevationProfileService from "../src/ElevationProfile/application/ElevationProfileService";
 import TurfJSElevationProfileToleranceChecker from "../src/ElevationProfile/infraestructure/TurfJSElevationProfileToleranceChecker";
+import TurfJSLineToPointsInterval from "../src/Shared/infrastructure/TurfJSLineToPointsInterval";
 import ElevationProfilePostmanTest from "./infrastructure/ElevationProfilePostmanTest";
 
 container.register("Postman", {
   useClass: ElevationProfilePostmanTest,
+});
+container.register("LineToPointsInterval", {
+  useClass: TurfJSLineToPointsInterval,
 });
 container.register("ElevationProfileToleranceChecker", {
   useClass: TurfJSElevationProfileToleranceChecker,
@@ -18,6 +22,7 @@ container.register("ElevationProfileToleranceChecker", {
 test("Get Elevation Profile form", () => {
   const elevationProfileHandler = new ElevationProfileHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    container.resolve(TurfJSLineToPointsInterval),
     container.resolve(ElevationProfileService)
   );
   const expectedFields = JSON.parse(
@@ -38,6 +43,7 @@ test("Execute succesful Elevation Profile with 3D LineString response", async ()
   const postmanTest = new ElevationProfilePostmanTest();
   const elevationProfileHandler = new ElevationProfileHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    container.resolve(TurfJSLineToPointsInterval),
     container.resolve(ElevationProfileService)
   );
 
@@ -52,6 +58,7 @@ test("Execute succesful Elevation Profile with Feature Collection response", asy
   const postmanTest = new ElevationProfilePostmanTest();
   const elevationProfileHandler = new ElevationProfileHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    container.resolve(TurfJSLineToPointsInterval),
     container.resolve(ElevationProfileService)
   );
 
@@ -68,6 +75,7 @@ test("Execute succesful Elevation Profile with Feature Collection response", asy
 test("Execute Elevation Profile and get Coordinates Exception", async () => {
   const elevationProfileHandler = new ElevationProfileHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    container.resolve(TurfJSLineToPointsInterval),
     container.resolve(ElevationProfileService)
   );
 
@@ -83,6 +91,7 @@ test("Execute Elevation Profile and get Coordinates Exception", async () => {
 test("Execute Elevation Profile and get Line Lenght Exception", async () => {
   const elevationProfileHandler = new ElevationProfileHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    container.resolve(TurfJSLineToPointsInterval),
     container.resolve(ElevationProfileService)
   );
 

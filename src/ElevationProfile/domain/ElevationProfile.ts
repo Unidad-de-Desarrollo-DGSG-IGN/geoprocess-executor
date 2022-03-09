@@ -22,6 +22,7 @@ export default class ElevationProfile {
 
   constructor(line: Line, linePoints: MultiPoint, wpsEndpoint: wpsEndpoint) {
     this._line = line;
+    this._linePoints = linePoints;
     this._wpsEndpoint = wpsEndpoint;
   }
 
