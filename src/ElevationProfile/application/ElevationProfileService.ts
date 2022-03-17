@@ -1,4 +1,8 @@
+import { point } from "@turf/helpers";
 import { inject, injectable } from "tsyringe";
+import Height from "../../Shared/domain/Height";
+import Line3D from "../../Shared/domain/Line3D";
+import Point3D from "../../Shared/domain/Point3D";
 
 import Postman from "../../Shared/domain/Postman";
 import ElevationProfile from "../domain/ElevationProfile";
@@ -28,61 +32,45 @@ export default class ElevationProfileService {
     responseType: ElevationProfileResponseType
   ): Promise<JSON> {
     this.ensureInputDataIsInTolerance(elevationProfile);
-    console.log(elevationProfile.xmlInput);
     const postmanResponse: any = await this.postman.post(
       elevationProfile.fullWpsEndpoint,
       elevationProfile.xmlInput
     );
-
-    return this.formatResponse(postmanResponse, responseType);
+    
+    const line3D: Line3D = this.generateLine3DFromResponse(elevationProfile, postmanResponse);
+    return this.formatResponse(line3D, responseType);
   }
 
   ensureInputDataIsInTolerance(elevationProfile: ElevationProfile): void {
     this.tolaranceChecker.ensureInputDataIsInTolerance(elevationProfile);
   }
 
-  geoJsonFeatureCollectionToLineString3D(featureCollection: GeoJson): JSON {
-    const xyz: string[] = [];
-    for (const featureKey in featureCollection.features) {
-      //for (const coordinateKey in fc.features[featureKey].geometry.coordinates) {
-      // console.log(fc.features[featureKey].geometry.coordinates[0][0]);
-      // console.log(fc.features[featureKey].geometry.coordinates[0][1]);
-      // console.log(fc.features[featureKey].properties.alos_unificado_value);
-      xyz.push(`[
-        ${featureCollection.features[featureKey].geometry.coordinates[0][0][0]},
-        ${featureCollection.features[featureKey].geometry.coordinates[0][0][1]},
-        ${featureCollection.features[featureKey].properties.alos_unificado_value}
-      ]`);
-      xyz.push(`[
-        ${featureCollection.features[featureKey].geometry.coordinates[0][1][0]},
-        ${featureCollection.features[featureKey].geometry.coordinates[0][1][1]},
-        ${featureCollection.features[featureKey].properties.alos_unificado_value}
-      ]`);
-      //}
-    }
+  generateLine3DFromResponse(elevationProfile: ElevationProfile, postmanResponse: any): Line3D {
+    const featureCollection: GeoJson = postmanResponse;
+    let points3D: Point3D[] = [];
 
-    return JSON.parse(
-      '{ "type": "LineString", "coordinates": [' + xyz.join(",") + "] }"
-    );
-  }
+    elevationProfile.linePoints.points.forEach(function (point, index) {
+      for (const featureKey in featureCollection.features) {
+        if (featureCollection.features[featureKey].properties.feature_index == index) {
+          points3D.push(new Point3D(point.longitude, point.latitude, new Height(featureCollection.features[index].properties.alos_unificado_value)));
+          break;
+        }
+      }
+    });
 
-  replacePropertyHeightName(postmanResponse: any): JSON {
-    return JSON.parse(
-      JSON.stringify(postmanResponse).replace("alos_unificado_value", "height")
-    );
+    return new Line3D(points3D);
   }
 
   formatResponse(
-    postmanResponse: any,
+    line3D: Line3D,
     responseType: ElevationProfileResponseType
   ): JSON {
     if (
       responseType === ElevationProfileResponseType.FeatureCollectionOfLines
     ) {
-      return this.replacePropertyHeightName(postmanResponse);
+      return JSON.parse(line3D.toFeatureCollection());
     }
 
-    const featureCollection: GeoJson = postmanResponse;
-    return this.geoJsonFeatureCollectionToLineString3D(featureCollection);
+    return JSON.parse(line3D.toLineString3D());
   }
 }

@@ -1,13 +1,26 @@
-import Point from "./Point";
+import PointInLine from "./PointInLine";
 
-export default class MultiPoint {
-  protected _points: Point[] = [];
+export default class MultiPointInLine {
+  protected _points: PointInLine[] = [];
 
-  public add(point: Point): void {
+  public add(point: PointInLine): void {
     this._points.push(point);
+    this.reorderPointsByPositionInLine();
   }
 
-  public get points(): Point[] {
+  private reorderPointsByPositionInLine(): void {
+    this._points.sort((firstPoint, secondPoint) => {
+        if (firstPoint.positionInLine < secondPoint.positionInLine) {
+            return -1;
+        }
+        if (firstPoint.positionInLine > secondPoint.positionInLine) {
+            return 1;
+        }
+        return 0;
+    });
+  }
+
+  public get points(): PointInLine[] {
     return this._points;
   }
 

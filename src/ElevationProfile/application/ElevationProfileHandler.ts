@@ -18,6 +18,9 @@ container.register("Postman", {
 container.register("ElevationProfileToleranceChecker", {
   useClass: TurfJSElevationProfileToleranceChecker,
 });
+container.register("LineToPointsInterval", {
+  useClass: TurfJSLineToPointsInterval,
+});
 
 @injectable()
 export default class ElevationProfileHandler {
@@ -31,7 +34,8 @@ export default class ElevationProfileHandler {
     service?: ElevationProfileService
   ) {
     this.host = host;
-    this.lineToPoint = lineToPoint;
+    // this.lineToPoint = lineToPoint;
+    this.lineToPoint = new TurfJSLineToPointsInterval();
     if (service) {
       this.service = service;
     } else {

@@ -32,6 +32,7 @@ export default class ElevationProfilePostmanTest implements Postman {
           ]
         },
         "properties": {
+          "feature_index": 0,
           "alos_unificado_value": 3744.307617188,
           "INTERSECTION_ID": 0
         },

@@ -1,6 +1,6 @@
 import Line from "./Line";
-import MultiPoint from "./MultiPoint";
+import MultiPointInLine from "./MultiPointInLine";
 
 export default interface LineToPointsInterval {
-  execute(line: Line): MultiPoint;
+  execute(line: Line): MultiPointInLine;
 }

@@ -4,6 +4,7 @@ export interface GeoJsonGeometry {
 }
 
 export interface GeoJsonProperty {
+  feature_index: number;
   alos_unificado_value: number;
 }
 
