@@ -10,13 +10,13 @@ export default class MultiPointInLine {
 
   private reorderPointsByPositionInLine(): void {
     this._points.sort((firstPoint, secondPoint) => {
-        if (firstPoint.positionInLine < secondPoint.positionInLine) {
-            return -1;
-        }
-        if (firstPoint.positionInLine > secondPoint.positionInLine) {
-            return 1;
-        }
-        return 0;
+      if (firstPoint.positionInLine < secondPoint.positionInLine) {
+        return -1;
+      }
+      if (firstPoint.positionInLine > secondPoint.positionInLine) {
+        return 1;
+      }
+      return 0;
     });
   }
 
@@ -34,7 +34,7 @@ export default class MultiPointInLine {
 
   public toJSONFeatureCollection(): string {
     const pointsString: string[] = [];
-    let index: number = 0;
+    let index = 0;
     this._points.forEach((point) => {
       pointsString.push(
         `{ "type": "Feature", "properties": { "index": ${index} }, "geometry": { "type": "MultiPoint", "coordinates": [ [ ${point.toString}  ] ] } }`

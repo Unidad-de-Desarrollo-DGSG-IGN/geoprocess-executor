@@ -16,7 +16,6 @@ export default class TurfJSElevationProfileToleranceChecker
     //     "coordinates": [${elevationProfile.line.toString()}]
     //   }`);
     // const line = feature(geometry);
-
     // if (length(line, { units: "kilometers" }) > 100) {
     //   throw RangeError("The line length requested must be less than 100km");
     // }

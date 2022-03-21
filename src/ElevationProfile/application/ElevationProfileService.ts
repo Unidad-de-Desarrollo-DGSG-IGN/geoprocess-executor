@@ -1,9 +1,9 @@
 import { point } from "@turf/helpers";
 import { inject, injectable } from "tsyringe";
+
 import Height from "../../Shared/domain/Height";
 import Line3D from "../../Shared/domain/Line3D";
 import Point3D from "../../Shared/domain/Point3D";
-
 import Postman from "../../Shared/domain/Postman";
 import ElevationProfile from "../domain/ElevationProfile";
 import ElevationProfileToleranceChecker from "../domain/ElevationProfileToleranceChecker";
@@ -36,8 +36,11 @@ export default class ElevationProfileService {
       elevationProfile.fullWpsEndpoint,
       elevationProfile.xmlInput
     );
-    
-    const line3D: Line3D = this.generateLine3DFromResponse(elevationProfile, postmanResponse);
+
+    const line3D: Line3D = this.generateLine3DFromResponse(
+      elevationProfile,
+      postmanResponse
+    );
     return this.formatResponse(line3D, responseType);
   }
 
@@ -45,18 +48,50 @@ export default class ElevationProfileService {
     this.tolaranceChecker.ensureInputDataIsInTolerance(elevationProfile);
   }
 
-  generateLine3DFromResponse(elevationProfile: ElevationProfile, postmanResponse: any): Line3D {
+  generateLine3DFromResponse(
+    elevationProfile: ElevationProfile,
+    postmanResponse: any
+  ): Line3D {
     const featureCollection: GeoJson = postmanResponse;
-    let points3D: Point3D[] = [];
+    const points3D: Point3D[] = [];
 
     elevationProfile.linePoints.points.forEach(function (point, index) {
       for (const featureKey in featureCollection.features) {
-        if (featureCollection.features[featureKey].properties.feature_index == index) {
-          points3D.push(new Point3D(point.longitude, point.latitude, new Height(featureCollection.features[index].properties.alos_unificado_value)));
+        if (
+          featureCollection.features[featureKey].properties.feature_index ==
+          index
+        ) {
+          points3D.push(
+            new Point3D(
+              point.longitude,
+              point.latitude,
+              new Height(
+                featureCollection.features[
+                  index
+                ].properties.alos_unificado_value
+              )
+            )
+          );
           break;
         }
       }
     });
+
+    if (points3D.length == 1) {
+      const point =
+        elevationProfile.linePoints.points[
+          elevationProfile.linePoints.points.length - 1
+        ];
+      points3D.push(
+        new Point3D(
+          point.longitude,
+          point.latitude,
+          new Height(
+            featureCollection.features[0].properties.alos_unificado_value
+          )
+        )
+      );
+    }
 
     return new Line3D(points3D);
   }

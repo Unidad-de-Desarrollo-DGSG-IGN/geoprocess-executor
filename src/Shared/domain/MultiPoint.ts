@@ -21,7 +21,7 @@ export default class MultiPoint {
 
   public toJSONFeatureCollection(): string {
     const pointsString: string[] = [];
-    let index: number = 0;
+    let index = 0;
     this._points.forEach((point) => {
       pointsString.push(
         `{ "type": "Feature", "properties": { "index": ${index} }, "geometry": { "type": "MultiPoint", "coordinates": [ [ ${point.toString}  ] ] } }`

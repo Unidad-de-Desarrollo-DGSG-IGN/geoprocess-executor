@@ -58,22 +58,24 @@ export default class Line3D {
   }
 
   public toFeatureCollection(): string {
-    let features: string[] = [];
+    const features: string[] = [];
     for (let index = 1; index < this._value.length; index++) {
-      features[(index-1)] = `{
+      features[index - 1] = `{
         "type": "Feature",
         "geometry": {
           "type": "MultiLineString",
           "coordinates": [
             [
-              [ ${this._value[index-1].toString2D} ], [ ${this._value[index].toString2D} ]
+              [ ${this._value[index - 1].toString2D} ], [ ${
+        this._value[index].toString2D
+      } ]
             ]
           ],
           "properties": {
             "index": ${index},
-            "height": ${this._value[index-1].height.value}
+            "height": ${this._value[index - 1].height.value}
           },
-          "id": "${(index-1)}"
+          "id": "${index - 1}"
         }
       }`;
     }

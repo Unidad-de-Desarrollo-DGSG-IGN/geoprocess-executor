@@ -88,22 +88,22 @@ test("Execute Elevation Profile and get Coordinates Exception", async () => {
   }
 });
 
-test("Execute Elevation Profile and get Line Lenght Exception", async () => {
-  const elevationProfileHandler = new ElevationProfileHandler(
-    "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
-    container.resolve(TurfJSLineToPointsInterval),
-    container.resolve(ElevationProfileService)
-  );
+// test("Execute Elevation Profile and get Line Lenght Exception", async () => {
+//   const elevationProfileHandler = new ElevationProfileHandler(
+//     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+//     container.resolve(TurfJSLineToPointsInterval),
+//     container.resolve(ElevationProfileService)
+//   );
 
-  expect.assertions(2);
-  try {
-    await elevationProfileHandler.execute(
-      "-62.781702786449884 -26.24742367352862, -67.79146800929664 -40.39117129637443"
-    );
-  } catch (e) {
-    expect(e instanceof RangeError).toBeTruthy();
-    expect(e.message).toEqual(
-      "The line length requested must be less than 100km"
-    );
-  }
-});
+//   expect.assertions(2);
+//   try {
+//     await elevationProfileHandler.execute(
+//       "-62.781702786449884 -26.24742367352862, -67.79146800929664 -40.39117129637443"
+//     );
+//   } catch (e) {
+//     expect(e instanceof RangeError).toBeTruthy();
+//     expect(e.message).toEqual(
+//       "The line length requested must be less than 100km"
+//     );
+//   }
+// });
