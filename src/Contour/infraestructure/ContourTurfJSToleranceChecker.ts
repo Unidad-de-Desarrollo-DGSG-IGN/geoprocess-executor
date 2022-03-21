@@ -5,8 +5,10 @@ import { injectable } from "tsyringe";
 
 import Latitude from "../../Shared/domain/Latitude";
 import Longitude from "../../Shared/domain/Longitude";
+import Polygon from "../../Shared/domain/Polygon";
 import Contour from "../domain/Contour";
 import ContourToleranceChecker from "../domain/ContourToleranceChecker";
+import ContourV2 from "../domain/ContourV2";
 
 @injectable()
 export default class ContourTurfJSToleranceChecker
@@ -65,6 +67,45 @@ export default class ContourTurfJSToleranceChecker
         [longitudeUpper.value, latitudeUpper.value], //x1y1
       ],
     ]);
+
+    return x;
+  }
+
+  ensureInputDataIsInToleranceV2(contour: ContourV2): void {
+    const inputPolygon = this.pointsToPolygonV2(contour.polygon);
+
+    if (area(inputPolygon) > ContourV2.MAX_AREA_ALLOWED) {
+      throw RangeError("The area requested must be less than 100km2");
+    }
+
+    const elevatedSurfaces = polygon([
+      [
+        [-73.904443327547412, -51.888469736942632],
+        [-70.88203831519283, -20.86255705909867],
+        [-62.863412772211284, -21.417692673612777],
+        [-64.343774410915572, -28.696137397242179],
+        [-62.678367567373243, -28.881182602080212],
+        [-66.502635134025979, -52.690332291240786],
+        [-73.904443327547412, -51.888469736942632],
+      ],
+    ]);
+
+    const interseccion = booleanContains(elevatedSurfaces, inputPolygon);
+
+    if (
+      interseccion == true &&
+      contour.equidistance.value < Contour.MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED
+    ) {
+      throw RangeError("Equidistance must be grather than 100");
+    } else if (
+      contour.equidistance.value < Contour.MIN_VALLEY_EQUIDISTANCE_ALLOWED
+    ) {
+      throw RangeError("Equidistance must be grather than 10");
+    }
+  }
+
+  pointsToPolygonV2(_polygon: Polygon): Feature {
+    const x = polygon(_polygon.coordinates());
 
     return x;
   }

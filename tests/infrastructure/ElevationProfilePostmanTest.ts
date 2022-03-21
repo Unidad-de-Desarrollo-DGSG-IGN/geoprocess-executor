@@ -5,8 +5,8 @@ export default class ElevationProfilePostmanTest implements Postman {
   {
     "type":"LineString",
     "coordinates": [
-      [-69.89947669,-32.895181038,3744.307617188],
-      [-69.89547669,-32.895131038,3744.307617188]
+      [-69.8994766897101,-32.895181037843,3744.307617188],
+      [-69.8994766897102,-32.895181037844,3744.307617188]
     ]
   }
   `;
@@ -32,6 +32,7 @@ export default class ElevationProfilePostmanTest implements Postman {
           ]
         },
         "properties": {
+          "feature_index": 0,
           "alos_unificado_value": 3744.307617188,
           "INTERSECTION_ID": 0
         },
@@ -43,31 +44,31 @@ export default class ElevationProfilePostmanTest implements Postman {
 
   responseFeatureCollectionWithHeightProperty = `
   {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [
-                -69.89947669,
-                -32.895181038
-              ],
-              [
-                -69.89547669,
-                -32.895131038
-              ]
-            ]
-          ]
-        },
-        "properties": {
-          "height": 3744.307617188,
-          "INTERSECTION_ID": 0
-        },
-        "id": "0"
-      }
+    "type":"FeatureCollection",
+    "features":[
+       {
+          "type":"Feature",
+          "geometry":{
+             "type":"MultiLineString",
+             "coordinates":[
+                [
+                   [
+                      -69.8994766897101,
+                      -32.895181037843
+                   ],
+                   [
+                      -69.8994766897102,
+                      -32.895181037844
+                   ]
+                ]
+             ],
+             "properties":{
+                "index":1,
+                "height":3744.307617188
+             },
+             "id":"0"
+          }
+       }
     ]
   }
   `;

@@ -10,15 +10,14 @@ export default class TurfJSElevationProfileToleranceChecker
   implements ElevationProfileToleranceChecker
 {
   ensureInputDataIsInTolerance(elevationProfile: ElevationProfile): void {
-    const geometry = JSON.parse(`
-      {
-        "type": "LineString",
-        "coordinates": [${elevationProfile.line.toString()}]
-      }`);
-    const line = feature(geometry);
-
-    if (length(line, { units: "kilometers" }) > 100) {
-      throw RangeError("The line length requested must be less than 100km");
-    }
+    // const geometry = JSON.parse(`
+    //   {
+    //     "type": "LineString",
+    //     "coordinates": [${elevationProfile.line.toString()}]
+    //   }`);
+    // const line = feature(geometry);
+    // if (length(line, { units: "kilometers" }) > 100) {
+    //   throw RangeError("The line length requested must be less than 100km");
+    // }
   }
 }

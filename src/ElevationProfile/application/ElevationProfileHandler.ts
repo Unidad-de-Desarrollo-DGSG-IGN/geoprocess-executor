@@ -1,10 +1,12 @@
 import "reflect-metadata";
 
-import { container } from "tsyringe";
+import { container, inject, injectable } from "tsyringe";
 
 import Line from "../../Shared/domain/Line";
+import LineToPointsInterval from "../../Shared/domain/LineToPointsInterval";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
+import TurfJSLineToPointsInterval from "../../Shared/infrastructure/TurfJSLineToPointsInterval";
 import ElevationProfile from "../domain/ElevationProfile";
 import TurfJSElevationProfileToleranceChecker from "../infraestructure/TurfJSElevationProfileToleranceChecker";
 import { ElevationProfileResponseType } from "./ElevationProfileResponseType";
@@ -16,12 +18,24 @@ container.register("Postman", {
 container.register("ElevationProfileToleranceChecker", {
   useClass: TurfJSElevationProfileToleranceChecker,
 });
+container.register("LineToPointsInterval", {
+  useClass: TurfJSLineToPointsInterval,
+});
 
+@injectable()
 export default class ElevationProfileHandler {
   private host: string;
+  private lineToPoint: LineToPointsInterval;
   private service: ElevationProfileService;
-  constructor(host: string, service?: ElevationProfileService) {
+  constructor(
+    host: string,
+    @inject("LineToPointsInterval")
+    lineToPoint: LineToPointsInterval,
+    service?: ElevationProfileService
+  ) {
     this.host = host;
+    // this.lineToPoint = lineToPoint;
+    this.lineToPoint = new TurfJSLineToPointsInterval();
     if (service) {
       this.service = service;
     } else {
@@ -34,11 +48,13 @@ export default class ElevationProfileHandler {
   }
 
   async execute(
-    line: string,
+    lineString: string,
     responseType = ElevationProfileResponseType.LineString3D
   ): Promise<JSON> {
+    const line: Line = Line.createFromString(lineString);
     const elevationProfile: ElevationProfile = new ElevationProfile(
-      Line.createFromString(line),
+      line,
+      this.lineToPoint.execute(line),
       new wpsEndpoint(this.host)
     );
 

@@ -14,6 +14,14 @@ export default class Point {
     return [this._longitude, this._latitude];
   }
 
+  public get longitude(): Longitude {
+    return this._longitude;
+  }
+
+  public get latitude(): Latitude {
+    return this._latitude;
+  }
+
   public get toString(): string {
     return `${this._longitude.value},${this._latitude.value}`;
   }

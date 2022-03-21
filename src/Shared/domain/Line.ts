@@ -51,4 +51,15 @@ export default class Line {
 
     return `${points.join(",")}`;
   }
+
+  public subLine(maxIndex: number): string {
+    const points: string[] = [];
+    this.value.forEach(function (point, actualIndex) {
+      if (actualIndex <= maxIndex) {
+        points.push(point.toString);
+      }
+    });
+
+    return `[${points.join("],[")}]`;
+  }
 }
