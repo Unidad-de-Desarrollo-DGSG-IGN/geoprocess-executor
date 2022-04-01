@@ -61,13 +61,14 @@ export default class ElevationProfilePostmanTest implements Postman {
                       -32.895181037844
                    ]
                 ]
-             ],
-             "properties":{
-                "index":1,
-                "height":3744.307617188
-             },
-             "id":"0"
-          }
+             ]
+          },
+          "properties":{
+             "index":1,
+             "initial_height": 3744.307617188,
+             "final_height": 3744.307617188
+          },
+          "id":"0"
        }
     ]
   }

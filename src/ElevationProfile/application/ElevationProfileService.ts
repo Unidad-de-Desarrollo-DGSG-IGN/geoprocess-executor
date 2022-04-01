@@ -55,6 +55,24 @@ export default class ElevationProfileService {
     const featureCollection: GeoJson = postmanResponse;
     const points3D: Point3D[] = [];
 
+    //Reorder the incomming features
+    featureCollection.features.sort((firstFeature, secondFeature) => {
+      if (
+        firstFeature.properties.feature_index <
+        secondFeature.properties.feature_index
+      ) {
+        return -1;
+      }
+      if (
+        firstFeature.properties.feature_index >
+        secondFeature.properties.feature_index
+      ) {
+        return 1;
+      }
+      return 0;
+    });
+
+    //Merge users points with incomming points
     elevationProfile.linePoints.points.forEach(function (point, index) {
       for (const featureKey in featureCollection.features) {
         if (

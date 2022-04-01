@@ -70,13 +70,14 @@ export default class Line3D {
         this._value[index].toString2D
       } ]
             ]
-          ],
-          "properties": {
-            "index": ${index},
-            "height": ${this._value[index - 1].height.value}
-          },
-          "id": "${index - 1}"
-        }
+          ]
+        },
+        "properties": {
+          "index": ${index},
+          "initial_height": ${this._value[index - 1].height.value},
+          "final_height": ${this._value[index].height.value}
+        },
+        "id": "${index - 1}"
       }`;
     }
 

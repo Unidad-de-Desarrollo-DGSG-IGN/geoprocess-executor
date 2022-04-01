@@ -34,12 +34,10 @@ export default class MultiPointInLine {
 
   public toJSONFeatureCollection(): string {
     const pointsString: string[] = [];
-    let index = 0;
-    this._points.forEach((point) => {
+    this._points.forEach((point, index) => {
       pointsString.push(
         `{ "type": "Feature", "properties": { "index": ${index} }, "geometry": { "type": "MultiPoint", "coordinates": [ [ ${point.toString}  ] ] } }`
       );
-      index++;
     });
     return `{
       "type": "FeatureCollection",
