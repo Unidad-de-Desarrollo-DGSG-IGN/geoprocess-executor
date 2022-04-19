@@ -28,11 +28,12 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
-3. Another example to consume Elevation Profile geoprocess (the second parameter is optional, the default value is GeoserviceFactory.ElevationProfileResponseType.LineString3D ):
+3. Another example to consume Elevation Profile geoprocess (in execute method the second parameter is optional, the default value is GeoserviceFactory.ElevationProfileResponseType.LineString3D ):
 ```js
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
-      "http://127.0.0.1/geoprocess-backend/elevation-profile"
+      "http://127.0.0.1/geoprocess-backend/elevation-profile",
+      "workspace:layerName"
     );
     console.log(elevationProfile.getFields());
     elevationProfile
@@ -109,7 +110,7 @@ Add the height data given a line.
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint, mdeLayerFullname): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(lineString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "LineString3D" (return a GeoJson with 3D LineString, the Z dimension is height) or "FeatureCollectionOfLines" (returns the height like a parameter of the Line). The default value is LineString3D.
 

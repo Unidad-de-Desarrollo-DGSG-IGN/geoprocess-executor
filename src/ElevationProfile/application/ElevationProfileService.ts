@@ -84,9 +84,9 @@ export default class ElevationProfileService {
               point.longitude,
               point.latitude,
               new Height(
-                featureCollection.features[
-                  index
-                ].properties.alos_unificado_value
+                featureCollection.features[index]["properties"][
+                  elevationProfile.mdeLayerShortname + "_value"
+                ]
               )
             )
           );
@@ -105,7 +105,9 @@ export default class ElevationProfileService {
           point.longitude,
           point.latitude,
           new Height(
-            featureCollection.features[0].properties.alos_unificado_value
+            featureCollection.features[0]["properties"][
+              elevationProfile.mdeLayerShortname + "_value"
+            ]
           )
         )
       );
