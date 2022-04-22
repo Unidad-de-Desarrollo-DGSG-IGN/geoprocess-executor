@@ -33,31 +33,34 @@ export default class ElevationOfPointService {
       elevationOfPoint.xmlInput
     );
 
-    return this.formatResponse(
-      elevationOfPoint.toString,
-      postmanResponse,
-      responseType
-    );
+    return this.formatResponse(elevationOfPoint, postmanResponse, responseType);
   }
 
   ensureInputDataIsInTolerance(elevationOfPoint: ElevationOfPoint): void {
     this.tolaranceChecker.ensureInputDataIsInTolerance(elevationOfPoint);
   }
 
-  postmanResponseToPoint3D(point2D: string, postmanResponse: any): JSON {
+  postmanResponseToPoint3D(
+    elevationOfPoint: ElevationOfPoint,
+    postmanResponse: any
+  ): JSON {
+    const point2D: string = elevationOfPoint.toString;
     return JSON.parse(
       '{ "type": "Point", "coordinates": [' +
         point2D +
         "," +
-        postmanResponse.features[0].properties.alos_unificado_value +
+        postmanResponse.features[0]["properties"][
+          elevationOfPoint.mdeLayerShortname + "_value"
+        ] +
         "] }"
     );
   }
 
   postmanResponseToFeatureCollection(
-    point2D: string,
+    elevationOfPoint: ElevationOfPoint,
     postmanResponse: any
   ): JSON {
+    const point2D: string = elevationOfPoint.toString;
     return JSON.parse(
       `{
         "type": "FeatureCollection",
@@ -71,7 +74,11 @@ export default class ElevationOfPointService {
               ]
             },
             "properties": {
-              "height": ${postmanResponse.features[0].properties.alos_unificado_value}
+              "height": ${
+                postmanResponse.features[0]["properties"][
+                  `${elevationOfPoint.mdeLayerShortname}_value`
+                ]
+              }
             },
             "id": "0"
           }
@@ -81,16 +88,20 @@ export default class ElevationOfPointService {
   }
 
   formatResponse(
-    point2D: string,
+    elevationOfPoint: ElevationOfPoint,
     postmanResponse: any,
     responseType: ElevationOfPointResponseType
   ): JSON {
+    const point2D: string = elevationOfPoint.toString;
     if (
       responseType === ElevationOfPointResponseType.FeatureCollectionOfPoint
     ) {
-      return this.postmanResponseToFeatureCollection(point2D, postmanResponse);
+      return this.postmanResponseToFeatureCollection(
+        elevationOfPoint,
+        postmanResponse
+      );
     }
 
-    return this.postmanResponseToPoint3D(point2D, postmanResponse);
+    return this.postmanResponseToPoint3D(elevationOfPoint, postmanResponse);
   }
 }

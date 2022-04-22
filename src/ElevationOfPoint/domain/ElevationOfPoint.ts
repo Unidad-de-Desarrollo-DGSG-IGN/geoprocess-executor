@@ -37,6 +37,13 @@ export default class ElevationOfPoint {
     return this._wpsEndpoint;
   }
 
+  public get mdeLayerShortname(): string {
+    if (this._mdeLayerFullname.value.indexOf(":") < 0) {
+      return this._mdeLayerFullname.value;
+    }
+    return this._mdeLayerFullname.value.split(":")[1];
+  }
+
   public get toString(): string {
     return this._point.toString;
   }

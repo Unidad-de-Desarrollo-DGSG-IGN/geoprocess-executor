@@ -81,7 +81,8 @@ The library compiled file is into "dist" directory.
 ```js
 <script>
     let elevationOfPoint = new GeoserviceFactory.ElevationOfPoint(       
-      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+      "workspace:layerName"
     );
     console.log(elevationOfPoint.getFields());
     elevationProfile
@@ -130,7 +131,7 @@ Add the height data given a point.
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(pointString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "Point3D" (return a GeoJson with 3D Point, the Z dimension is height) or "FeatureCollectionOfPoint" (returns the height like a parameter of the Line). The default value is Point3D.
 

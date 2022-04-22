@@ -18,6 +18,7 @@ container.register("ElevationOfPointToleranceChecker", {
 test("Get Elevation of Point form", () => {
   const elevationOfPointHandler = new ElevationOfPointHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ElevationOfPointService)
   );
   const expectedFields = JSON.parse(
@@ -37,6 +38,7 @@ test("Execute succesful Elevation of Point with 3D Point response", async () => 
   const postmanTest = new ElevationOfPointPostmanTest();
   const elevationOfPointHandler = new ElevationOfPointHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ElevationOfPointService)
   );
 
@@ -51,6 +53,7 @@ test("Execute succesful Elevation Profile with Feature Collection response", asy
   const postmanTest = new ElevationOfPointPostmanTest();
   const elevationProfileHandler = new ElevationOfPointHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ElevationOfPointService)
   );
 
@@ -67,6 +70,7 @@ test("Execute succesful Elevation Profile with Feature Collection response", asy
 test("Execute Elevation of Point and get Coordinates Exception", async () => {
   const elevationOfPointHandler = new ElevationOfPointHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ElevationOfPointService)
   );
 
