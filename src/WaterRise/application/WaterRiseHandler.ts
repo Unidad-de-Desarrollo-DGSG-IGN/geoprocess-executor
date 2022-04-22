@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
+import LayerFullname from "../../Shared/domain/LayerFullname";
 import Level from "../../Shared/domain/Level";
 import Polygon from "../../Shared/domain/Polygon";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
@@ -19,9 +20,15 @@ container.register("WaterRiseToleranceChecker", {
 
 export default class WaterRiseHandler {
   private host: string;
+  private mdeLayerFullname: string;
   private service: WaterRiseService;
-  constructor(host: string, service?: WaterRiseService) {
+  constructor(
+    host: string,
+    mdeLayerFullname: string,
+    service?: WaterRiseService
+  ) {
     this.host = host;
+    this.mdeLayerFullname = mdeLayerFullname;
     if (service) {
       this.service = service;
     } else {
@@ -37,7 +44,8 @@ export default class WaterRiseHandler {
     const waterRise: WaterRise = new WaterRise(
       Polygon.createFromString(polygon),
       new Level(level),
-      new wpsEndpoint(this.host)
+      new wpsEndpoint(this.host),
+      new LayerFullname(this.mdeLayerFullname)
     );
 
     return this.service.execute(waterRise);

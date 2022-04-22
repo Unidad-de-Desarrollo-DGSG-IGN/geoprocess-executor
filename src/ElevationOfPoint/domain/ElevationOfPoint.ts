@@ -1,9 +1,11 @@
+import LayerFullname from "../../Shared/domain/LayerFullname";
 import Point from "../../Shared/domain/Point";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 
 export default class ElevationOfPoint {
   private _point: Point;
   private _wpsEndpoint: wpsEndpoint;
+  private _mdeLayerFullname: LayerFullname;
 
   static readonly MAX_LENGHT_ALLOWED = 100;
   static readonly FIELDS = JSON.parse(
@@ -17,9 +19,14 @@ export default class ElevationOfPoint {
     ]`
   );
 
-  constructor(point: Point, wpsEndpoint: wpsEndpoint) {
+  constructor(
+    point: Point,
+    wpsEndpoint: wpsEndpoint,
+    mdeLayerFullname: LayerFullname
+  ) {
     this._point = point;
     this._wpsEndpoint = wpsEndpoint;
+    this._mdeLayerFullname = mdeLayerFullname;
   }
 
   public get point(): Point {
@@ -108,7 +115,7 @@ export default class ElevationOfPoint {
                               <wps:Reference mimeType="image/tiff" xlink:href="http://geoserver/wcs" method="POST">
                                 <wps:Body>
                                   <wcs:GetCoverage service="WCS" version="1.1.1">
-                                    <ows:Identifier>geoprocess:alos_unificado</ows:Identifier>
+                                    <ows:Identifier>${this._mdeLayerFullname.value}</ows:Identifier>
                                     <wcs:DomainSubset>
                                       <ows:BoundingBox crs="http://www.opengis.net/gml/srs/epsg.xml#4326">
                                         <ows:LowerCorner>-74.000000946 -55.666705466</ows:LowerCorner>

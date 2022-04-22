@@ -13,6 +13,7 @@ container.register("Postman", {
 test("Get Water Rise form", () => {
   const waterRiseHandler = new WaterRiseHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(WaterRiseService)
   );
   const expectedFields = JSON.parse(
@@ -40,6 +41,7 @@ test("Execute succesful Water Rise", async () => {
   const postmanTest = new WaterRisePostmanTest();
   const waterRiseHandler = new WaterRiseHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(WaterRiseService)
   );
 
@@ -57,6 +59,7 @@ test("Execute succesful Water Rise when request area touch higher and lower surf
   const postmanTest = new WaterRisePostmanTest();
   const waterRiseHandler = new WaterRiseHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(WaterRiseService)
   );
 
@@ -73,6 +76,7 @@ test("Execute succesful Water Rise when request area touch higher and lower surf
 test("Execute Water Rise and get Coordinates Exception", async () => {
   const waterRiseHandler = new WaterRiseHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(WaterRiseService)
   );
 
@@ -93,6 +97,7 @@ test("Execute Water Rise and get Coordinates Exception", async () => {
 test("Execute Water Rise and get Area Requested Exception", async () => {
   const waterRiseHandler = new WaterRiseHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(WaterRiseService)
   );
 
