@@ -4,6 +4,7 @@ import { container } from "tsyringe";
 
 import Equidistance from "../../Shared/domain/Equidistance";
 import Latitude from "../../Shared/domain/Latitude";
+import LayerFullname from "../../Shared/domain/LayerFullname";
 import Longitude from "../../Shared/domain/Longitude";
 import Polygon from "../../Shared/domain/Polygon";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
@@ -22,9 +23,15 @@ container.register("ContourToleranceChecker", {
 
 export default class ContourHandler {
   private host: string;
+  private mdeLayerFullname: string;
   private service: ContourService;
-  constructor(host: string, service?: ContourService) {
+  constructor(
+    host: string,
+    mdeLayerFullname: string,
+    service?: ContourService
+  ) {
     this.host = host;
+    this.mdeLayerFullname = mdeLayerFullname;
     if (service) {
       this.service = service;
     } else {
@@ -49,7 +56,8 @@ export default class ContourHandler {
       new Longitude(longitudeUpper),
       new Latitude(latitudeUpper),
       new Equidistance(equidistance),
-      new wpsEndpoint(this.host)
+      new wpsEndpoint(this.host),
+      new LayerFullname(this.mdeLayerFullname)
     );
 
     return this.service.execute(contour);

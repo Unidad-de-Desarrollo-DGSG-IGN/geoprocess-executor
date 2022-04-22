@@ -14,7 +14,8 @@ The library compiled file is into "dist" directory.
 ```js
 <script>
     let contour = new GeoserviceFactory.Contour(       
-      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+      "workspace:layerName"
     );
     console.log(contour.getFields());
     contour
@@ -101,7 +102,7 @@ Generates the contour lines of the area given two coordinates (lower left lat/lo
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class Contour, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint, mdeLayerFullname): when you generate a new instance of the class Contour, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 

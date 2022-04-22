@@ -13,6 +13,7 @@ container.register("Postman", {
 test("Get WPS Contour form", () => {
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
   const expectedFields = JSON.parse(
@@ -40,6 +41,7 @@ test("Execute succesful WPS Contour", async () => {
   const postmanTest = new ContourPostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
 
@@ -58,6 +60,7 @@ test("Execute succesful WPS Contour when request area touch higher and lower sur
   const postmanTest = new ContourPostmanTest();
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
 
@@ -75,6 +78,7 @@ test("Execute succesful WPS Contour when request area touch higher and lower sur
 test("Execute WPS Contour and get Coordinates Exception", async () => {
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
 
@@ -90,6 +94,7 @@ test("Execute WPS Contour and get Coordinates Exception", async () => {
 test("Execute WPS Contour and get Area Requested Exception", async () => {
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
 
@@ -111,6 +116,7 @@ test("Execute WPS Contour and get Area Requested Exception", async () => {
 test("Execute WPS Contour and get Equidistance Range Exception in Higher Surface", async () => {
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
 
@@ -132,6 +138,7 @@ test("Execute WPS Contour and get Equidistance Range Exception in Higher Surface
 test("Execute WPS Contour and get Equidistance Range Exception in Lower Surface", async () => {
   const contourHandler = new ContourHandler(
     "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+    "geoprocess:alos_unificado",
     container.resolve(ContourService)
   );
 
