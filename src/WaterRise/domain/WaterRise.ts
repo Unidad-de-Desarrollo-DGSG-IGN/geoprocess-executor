@@ -1,13 +1,13 @@
+import LayerFullname from "../../Shared/domain/LayerFullname";
 import Level from "../../Shared/domain/Level";
 import Polygon from "../../Shared/domain/Polygon";
-import StringValueObject from "../../Shared/domain/StringValueObject";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 
 export default class WaterRise {
   private _polygon: Polygon;
   private _level: Level;
   private _wpsEndpoint: wpsEndpoint;
-  private _baseRasterLayer: StringValueObject;
+  private _mdeLayerFullname: LayerFullname;
 
   static readonly MAX_AREA_ALLOWED = 100000000;
   static readonly FIELDS = JSON.parse(
@@ -29,12 +29,16 @@ export default class WaterRise {
     ]`
   );
 
-  constructor(polygon: Polygon, level: Level, wpsEndpoint: wpsEndpoint) {
+  constructor(
+    polygon: Polygon,
+    level: Level,
+    wpsEndpoint: wpsEndpoint,
+    mdeLayerFullname: LayerFullname
+  ) {
     this._polygon = polygon;
     this._level = level;
     this._wpsEndpoint = wpsEndpoint;
-
-    this._baseRasterLayer = new StringValueObject("geoprocess:alos_unificado");
+    this._mdeLayerFullname = mdeLayerFullname;
   }
 
   public get polygon(): Polygon {
@@ -75,7 +79,7 @@ export default class WaterRise {
                     <wps:Body>
                       <wcs:GetCoverage service="WCS" version="1.1.1">
                         <ows:Identifier>${
-                          this._baseRasterLayer.value
+                          this._mdeLayerFullname.value
                         }</ows:Identifier>
                         <wcs:DomainSubset>
                           <ows:BoundingBox crs="http://www.opengis.net/gml/srs/epsg.xml#4326">

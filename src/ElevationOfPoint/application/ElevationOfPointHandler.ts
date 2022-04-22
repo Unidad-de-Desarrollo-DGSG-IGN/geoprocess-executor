@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
+import LayerFullname from "../../Shared/domain/LayerFullname";
 import Point from "../../Shared/domain/Point";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
@@ -19,9 +20,15 @@ container.register("ElevationOfPointToleranceChecker", {
 
 export default class ElevationOfPointHandler {
   private host: string;
+  private mdeLayerFullname: string;
   private service: ElevationOfPointService;
-  constructor(host: string, service?: ElevationOfPointService) {
+  constructor(
+    host: string,
+    mdeLayerFullname: string,
+    service?: ElevationOfPointService
+  ) {
     this.host = host;
+    this.mdeLayerFullname = mdeLayerFullname;
     if (service) {
       this.service = service;
     } else {
@@ -39,7 +46,8 @@ export default class ElevationOfPointHandler {
   ): Promise<JSON> {
     const elevationOfPoint: ElevationOfPoint = new ElevationOfPoint(
       Point.createFromString(point),
-      new wpsEndpoint(this.host)
+      new wpsEndpoint(this.host),
+      new LayerFullname(this.mdeLayerFullname)
     );
 
     return this.service.execute(elevationOfPoint, responseType);

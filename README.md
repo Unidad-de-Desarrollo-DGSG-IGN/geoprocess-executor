@@ -14,7 +14,8 @@ The library compiled file is into "dist" directory.
 ```js
 <script>
     let contour = new GeoserviceFactory.Contour(       
-      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+      "workspace:layerName"
     );
     console.log(contour.getFields());
     contour
@@ -28,11 +29,12 @@ The library compiled file is into "dist" directory.
 </script>
 ```
 
-3. Another example to consume Elevation Profile geoprocess (the second parameter is optional, the default value is GeoserviceFactory.ElevationProfileResponseType.LineString3D ):
+3. Another example to consume Elevation Profile geoprocess (in execute method the second parameter is optional, the default value is GeoserviceFactory.ElevationProfileResponseType.LineString3D ):
 ```js
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
-      "http://127.0.0.1/geoprocess-backend/elevation-profile"
+      "http://127.0.0.1/geoprocess-backend/elevation-profile",
+      "workspace:layerName"
     );
     console.log(elevationProfile.getFields());
     elevationProfile
@@ -53,7 +55,8 @@ The library compiled file is into "dist" directory.
 ```js
 <script>
     let waterRise = new GeoserviceFactory.WaterRise(       
-      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+      "workspace:layerName"
     );
     console.log(waterRise.getFields());
     waterRise
@@ -78,7 +81,8 @@ The library compiled file is into "dist" directory.
 ```js
 <script>
     let elevationOfPoint = new GeoserviceFactory.ElevationOfPoint(       
-      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0"
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
+      "workspace:layerName"
     );
     console.log(elevationOfPoint.getFields());
     elevationProfile
@@ -100,7 +104,7 @@ Generates the contour lines of the area given two coordinates (lower left lat/lo
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class Contour, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint, mdeLayerFullname): when you generate a new instance of the class Contour, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(longitudeLower, latitudeLower, longitudeUpper, latitudeUpper, equidistance): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
@@ -109,7 +113,7 @@ Add the height data given a line.
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint, mdeLayerFullname): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(lineString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "LineString3D" (return a GeoJson with 3D LineString, the Z dimension is height) or "FeatureCollectionOfLines" (returns the height like a parameter of the Line). The default value is LineString3D.
 
@@ -118,7 +122,7 @@ Generates a polygon of an area containing all height less than the requested hei
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(polygonString, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
 
@@ -127,7 +131,7 @@ Add the height data given a point.
 
 **Methods**
 
-- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind that you wish to use.
+- constructor(wpsEndpoint): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
 - async execute(pointString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "Point3D" (return a GeoJson with 3D Point, the Z dimension is height) or "FeatureCollectionOfPoint" (returns the height like a parameter of the Line). The default value is Point3D.
 
