@@ -33,7 +33,7 @@ The library compiled file is into "dist" directory.
 ```js
 <script>
     let elevationProfile = new GeoserviceFactory.ElevationProfile(       
-      "http://127.0.0.1/geoprocess-backend/elevation-profile",
+      "http://127.0.0.1:8080/geoserver/ows?service=WPS&version=1.0.0",
       "workspace:layerName"
     );
     console.log(elevationProfile.getFields());
