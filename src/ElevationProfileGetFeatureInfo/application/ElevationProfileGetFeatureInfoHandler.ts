@@ -24,7 +24,7 @@ container.register("LineToPointsInterval", {
 });
 
 @injectable()
-export default class ElevationProfileHandler {
+export default class ElevationProfileGetFeatureInfoHandler {
   private host: string;
   private mdeLayerFullname: string;
   private lineToPoint: LineToPointsInterval;

@@ -34,14 +34,24 @@ export default class ElevationProfileService {
     this.ensureInputDataIsInTolerance(elevationProfile);
 
     let postmanResponse: any;
-    elevationProfile.linePoints.points.forEach(async (point, index) => {
+    // const points3D: Point3D[] = [];
+
+    const promises = elevationProfile.linePoints.points.map(async (point) => {
       postmanResponse = await this.postman.get(
         elevationProfile.fullWmsEndpoint(point)
       );
-      console.log(postmanResponse);
+      return new Point3D(
+        point.longitude,
+        point.latitude,
+        new Height(
+          Number(Object.values(postmanResponse.features[0].properties)[0])
+        )
+      );
     });
 
-    return JSON.parse("OK");
+    const points3D = await Promise.all(promises);
+
+    return JSON.parse(new Line3D(points3D).toLineString3D());
   }
 
   ensureInputDataIsInTolerance(elevationProfile: ElevationProfile): void {
