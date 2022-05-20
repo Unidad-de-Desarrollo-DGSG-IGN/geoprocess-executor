@@ -61,6 +61,10 @@ export default class ElevationOfPointPostmanTest implements Postman {
     content;
     return JSON.parse(this.responseFeatureCollection); // parses JSON response into native JavaScript objects
   }
+  async get(url: string): Promise<JSON> {
+    url;
+    return JSON.parse(""); // parses JSON response into native JavaScript objects
+  }
   getResponseTestWith3DPointResponse(): JSON {
     return JSON.parse(this.response3DPoint);
   }
