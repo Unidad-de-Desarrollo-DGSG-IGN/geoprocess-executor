@@ -37,4 +37,11 @@ export default class Point {
       new Latitude(parseFloat(arrayPoint[1]))
     );
   }
+
+  public get moveLongitude(): Longitude {
+    return new Longitude(this._longitude.value + 0.0000001);
+  }
+  public get moveLatitude(): Latitude {
+    return new Latitude(this._latitude.value + 0.0000001);
+  }
 }
