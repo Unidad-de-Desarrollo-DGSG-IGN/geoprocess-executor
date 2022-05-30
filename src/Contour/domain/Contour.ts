@@ -15,7 +15,7 @@ export default class Contour {
 
   static readonly MAX_AREA_ALLOWED = 100000000;
   static readonly MIN_VALLEY_EQUIDISTANCE_ALLOWED = 10;
-  static readonly MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED = 100;
+  static readonly MIN_MOUNTAIN_EQUIDISTANCE_ALLOWED = 10;
   static readonly FIELDS = JSON.parse(
     `[
       {
