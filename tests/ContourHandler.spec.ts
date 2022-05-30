@@ -127,11 +127,11 @@ test("Execute WPS Contour and get Equidistance Range Exception in Higher Surface
       -28.47228576296026,
       -69.28589006035277,
       -28.47228576296025,
-      10
+      9
     );
   } catch (e) {
     expect(e instanceof RangeError).toBeTruthy();
-    expect(e.message).toEqual("Equidistance must be grather than 100");
+    expect(e.message).toEqual("The equidistance must be between 10 and 10000");
   }
 });
 
