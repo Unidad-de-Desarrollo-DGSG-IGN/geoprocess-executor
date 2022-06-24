@@ -83,8 +83,8 @@ export default class WaterRise {
                         }</ows:Identifier>
                         <wcs:DomainSubset>
                           <ows:BoundingBox crs="http://www.opengis.net/gml/srs/epsg.xml#4326">
-                            <ows:LowerCorner>-74.000000946 -55.666705466</ows:LowerCorner>
-                            <ows:UpperCorner>-53.499547847 -21.666460109</ows:UpperCorner>
+                            <ows:LowerCorner>-74.000000946 -59.483427301014075</ows:LowerCorner>
+                            <ows:UpperCorner>-26.233442340289727 -21.666460109</ows:UpperCorner>
                           </ows:BoundingBox>
                         </wcs:DomainSubset>
                         <wcs:Output format="image/tiff"/>
