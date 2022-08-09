@@ -122,7 +122,7 @@ export default class WaterRise {
       </wps:Input>
     </wps:DataInputs>
     <wps:ResponseForm>
-      <wps:RawDataOutput mimeType="image/tiff">
+      <wps:RawDataOutput mimeType="image/png">
         <ows:Identifier>reclassified</ows:Identifier>
       </wps:RawDataOutput>
     </wps:ResponseForm>
