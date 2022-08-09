@@ -40,7 +40,7 @@ export default class WaterRiseHandler {
     return this.service.getFields();
   }
 
-  async execute(polygon: string, level: number): Promise<JSON> {
+  async execute(polygon: string, level: number): Promise<Blob> {
     const waterRise: WaterRise = new WaterRise(
       Polygon.createFromString(polygon),
       new Level(level),
