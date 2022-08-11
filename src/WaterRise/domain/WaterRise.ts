@@ -8,6 +8,7 @@ export default class WaterRise {
   private _level: Level;
   private _wpsEndpoint: wpsEndpoint;
   private _mdeLayerFullname: LayerFullname;
+  private _outputFormat: string;
 
   static readonly MAX_AREA_ALLOWED = 100000000;
   static readonly FIELDS = JSON.parse(
@@ -33,12 +34,28 @@ export default class WaterRise {
     polygon: Polygon,
     level: Level,
     wpsEndpoint: wpsEndpoint,
-    mdeLayerFullname: LayerFullname
+    mdeLayerFullname: LayerFullname,
+    outputFormat: string
   ) {
+    this.ensureValidOutputFormat(outputFormat);
+
     this._polygon = polygon;
     this._level = level;
     this._wpsEndpoint = wpsEndpoint;
     this._mdeLayerFullname = mdeLayerFullname;
+
+    this._outputFormat = outputFormat;
+  }
+
+  private ensureValidOutputFormat(outputFormat: string): void {
+    const validFormats: Array<string> = [
+      "image/png",
+      "image/jpeg",
+      "image/tiff",
+    ];
+    if (!validFormats.includes(outputFormat)) {
+      throw RangeError("Invalid output format");
+    }
   }
 
   public get polygon(): Polygon {
@@ -122,7 +139,7 @@ export default class WaterRise {
       </wps:Input>
     </wps:DataInputs>
     <wps:ResponseForm>
-      <wps:RawDataOutput mimeType="image/png">
+      <wps:RawDataOutput mimeType="${this._outputFormat}">
         <ows:Identifier>reclassified</ows:Identifier>
       </wps:RawDataOutput>
     </wps:ResponseForm>
