@@ -54,7 +54,7 @@
     "typescript": "^4.3.2",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^3.11.2",
+    "webpack-dev-server": "^4.10.0",
     "webpack-merge": "^5.8.0"
   },
   "browserslist": [
@@ -62,13 +62,13 @@
     "not IE 11"
   ],
   "dependencies": {
+    "@turf/along": "^6.4.0",
     "@turf/area": "^6.4.0",
     "@turf/boolean-contains": "^6.4.0",
     "@turf/boolean-intersects": "^6.4.0",
     "@turf/helpers": "^6.4.0",
     "@turf/length": "^6.4.0",
-    "@turf/along": "^6.4.0",
-    "http-server": "^0.12.3",
+    "http-server": "^14.1.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.1.0",
     "tsyringe": "^4.5.0"
