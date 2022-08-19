@@ -21,10 +21,10 @@ export default class WaterRiseService {
     return WaterRise.FIELDS;
   }
 
-  async execute(waterRise: WaterRise): Promise<JSON> {
+  async execute(waterRise: WaterRise): Promise<Blob> {
     this.ensureInputDataIsInTolerance(waterRise);
 
-    return await this.postman.post(
+    return await this.postman.postReturningBlob(
       waterRise.fullWpsEndpoint,
       waterRise.xmlInput
     );

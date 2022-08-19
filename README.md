@@ -66,7 +66,8 @@ The library compiled file is into "dist" directory.
          -69.799789090436576 -34.110482800785661,
          -69.717829710947697 -34.13467138556318,
          -69.696212581553127 -34.207204894110262`,
-        3316
+        3316,
+        "image/png"
       )
       .then((result) => {
         console.log(result);
@@ -124,7 +125,8 @@ Generates a polygon of an area containing all height less than the requested hei
 
 - constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
-- async execute(polygonString, level): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+- async execute(polygonString, level, outputFormat): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+The valid output formats are: "image/png", "image/jpeg" and "image/tiff"
 
 ### class ElevationOfPoint
 Add the height data given a point.

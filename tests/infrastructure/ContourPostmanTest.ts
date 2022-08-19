@@ -22,6 +22,11 @@ export default class ContourPostmanTest implements Postman {
     content;
     return JSON.parse(this.response); // parses JSON response into native JavaScript objects
   }
+  async postReturningBlob(url: string, content: string): Promise<Blob> {
+    url;
+    content;
+    return new Blob();
+  }
   async get(url: string): Promise<JSON> {
     url;
     return JSON.parse(this.response); // parses JSON response into native JavaScript objects

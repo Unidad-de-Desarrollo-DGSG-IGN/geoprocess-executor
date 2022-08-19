@@ -78,6 +78,11 @@ export default class ElevationProfilePostmanTest implements Postman {
     content;
     return JSON.parse(this.responseFeatureCollection); // parses JSON response into native JavaScript objects
   }
+  async postReturningBlob(url: string, content: string): Promise<Blob> {
+    url;
+    content;
+    return new Blob();
+  }
   async get(url: string): Promise<JSON> {
     url;
     return JSON.parse(""); // parses JSON response into native JavaScript objects
