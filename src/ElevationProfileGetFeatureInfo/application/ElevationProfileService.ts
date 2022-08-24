@@ -51,7 +51,8 @@ export default class ElevationProfileService {
 
     const points3D = await Promise.all(promises);
 
-    return JSON.parse(new Line3D(points3D).toLineString3D());
+    // return JSON.parse(new Line3D(points3D).toLineString3D());
+    return this.formatResponse(points3D, responseType);
   }
 
   ensureInputDataIsInTolerance(elevationProfile: ElevationProfile): void {
@@ -127,15 +128,15 @@ export default class ElevationProfileService {
   }
 
   formatResponse(
-    line3D: Line3D,
+    points3D: Point3D[],
     responseType: ElevationProfileResponseType
   ): JSON {
     if (
       responseType === ElevationProfileResponseType.FeatureCollectionOfLines
     ) {
-      return JSON.parse(line3D.toFeatureCollection());
+      return JSON.parse(new Line3D(points3D).toFeatureCollection());
     }
 
-    return JSON.parse(line3D.toLineString3D());
+    return JSON.parse(new Line3D(points3D).toLineString3D());
   }
 }
