@@ -139,13 +139,13 @@ export default class WaterRise {
       </wps:Input><wps:Input>
       <ows:Identifier>outputPixelValues</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>0</wps:LiteralData>
+        <wps:LiteralData>124</wps:LiteralData>
       </wps:Data>
     </wps:Input>
     <wps:Input>
       <ows:Identifier>noData</ows:Identifier>
       <wps:Data>
-        <wps:LiteralData>255</wps:LiteralData>
+        <wps:LiteralData>0</wps:LiteralData>
       </wps:Data>
     </wps:Input>
     </wps:DataInputs>
