@@ -3,6 +3,7 @@ export default interface WaterRiseXMLGenerator {
     mdeLayerFullname: string,
     rectangle: string,
     level: number,
-    areaBackgroundColor: string
+    areaBackgroundColor: string,
+    areaOpacity: number
   ): string;
 }

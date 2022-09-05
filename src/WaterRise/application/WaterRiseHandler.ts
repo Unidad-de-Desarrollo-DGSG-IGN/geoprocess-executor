@@ -44,7 +44,8 @@ export default class WaterRiseHandler {
     polygon: string,
     level: number,
     outputFormat = "image/png",
-    areaBackgroundColor = "#FF0000"
+    areaBackgroundColor = "#FF0000",
+    areaOpacity = 1.0
   ): Promise<Blob> {
     const waterRise: WaterRise = new WaterRise(
       Polygon.createFromString(polygon),
@@ -52,7 +53,8 @@ export default class WaterRiseHandler {
       new wpsEndpoint(this.host),
       new LayerFullname(this.mdeLayerFullname),
       outputFormat,
-      areaBackgroundColor
+      areaBackgroundColor,
+      areaOpacity
     );
 
     return this.service.execute(waterRise);

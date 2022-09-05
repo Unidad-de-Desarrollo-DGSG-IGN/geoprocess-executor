@@ -14,6 +14,7 @@ export default class WaterRise {
   private _outputFormat: string;
   private _xmlGenerator: WaterRiseXMLGenerator;
   private _areaBackgoundColor: string;
+  private _areaOpacity: number;
 
   static readonly MAX_AREA_ALLOWED = 100000000;
   static readonly FIELDS = JSON.parse(
@@ -41,9 +42,11 @@ export default class WaterRise {
     wpsEndpoint: wpsEndpoint,
     mdeLayerFullname: LayerFullname,
     outputFormat: string,
-    areaBackgroundColor: string
+    areaBackgroundColor: string,
+    areaOpacity: number
   ) {
     this.ensureValidOutputFormat(outputFormat);
+    this.areaValidOpacity(areaOpacity);
 
     this._polygon = polygon;
     this._level = level;
@@ -61,6 +64,7 @@ export default class WaterRise {
     }
 
     this._areaBackgoundColor = areaBackgroundColor;
+    this._areaOpacity = areaOpacity;
   }
 
   private ensureValidOutputFormat(outputFormat: string): void {
@@ -71,6 +75,14 @@ export default class WaterRise {
     ];
     if (!validFormats.includes(outputFormat)) {
       throw RangeError("Invalid output format");
+    }
+  }
+
+  private areaValidOpacity(areaOpacity: number) {
+    if (areaOpacity < 0 || areaOpacity > 1) {
+      throw RangeError(
+        "Invalid area opacity. This value must be between 0 and 1."
+      );
     }
   }
 
@@ -95,11 +107,13 @@ export default class WaterRise {
   }
 
   public get xmlInput(): string {
-    return this._xmlGenerator.generate(
+    return `<?xml version="1.0" encoding="UTF-8"?>
+    ${this._xmlGenerator.generate(
       this._mdeLayerFullname.value,
       this.rectangle(),
       this._level.value,
-      this._areaBackgoundColor
-    );
+      this._areaBackgoundColor,
+      this._areaOpacity
+    )}`;
   }
 }
