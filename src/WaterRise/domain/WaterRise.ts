@@ -136,7 +136,18 @@ export default class WaterRise {
         <wps:Data>
           <wps:LiteralData>[-9999;${this._level.value}]</wps:LiteralData>
         </wps:Data>
-      </wps:Input>
+      </wps:Input><wps:Input>
+      <ows:Identifier>outputPixelValues</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>0</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
+    <wps:Input>
+      <ows:Identifier>noData</ows:Identifier>
+      <wps:Data>
+        <wps:LiteralData>255</wps:LiteralData>
+      </wps:Data>
+    </wps:Input>
     </wps:DataInputs>
     <wps:ResponseForm>
       <wps:RawDataOutput mimeType="${this._outputFormat}">
