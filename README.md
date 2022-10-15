@@ -67,7 +67,9 @@ The library compiled file is into "dist" directory.
          -69.717829710947697 -34.13467138556318,
          -69.696212581553127 -34.207204894110262`,
         3316,
-        "image/png"
+        "image/png",
+        "#FF0000",
+        1.0
       )
       .then((result) => {
         console.log(result);
@@ -125,8 +127,10 @@ Generates a polygon of an area containing all height less than the requested hei
 
 - constructor(wpsEndpoint): when you generate a new instance of the class WaterRise, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
-- async execute(polygonString, level, outputFormat): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
-The valid output formats are: "image/png", "image/jpeg" and "image/tiff"
+- async execute(polygonString, level, outputFormat, areaBackgroundColor, areaOpacity): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result.
+The outputFormat parameter is optional. The valid output formats are: "image/png", "image/jpeg" and "image/tiff". Default value is "image/png".
+The areaBackgroundColor parameter is optional. This parameter apply this color over the resulting area only when outputFormat is "image/png". The valid colors are in RGB style, by example: "#00FF00" or "#557478". Default value is "#FF0000".
+The areaOpacity parameter is optional. This parameter apply opacity to the resulting area only when outputFormat is "image/png". The valid values are between 0.0 and 1.0. Default value is 1.0.
 
 ### class ElevationOfPoint
 Add the height data given a point.
