@@ -23,7 +23,19 @@ export default class TurfJSLineToPointsInterval
   private static readonly BUFFER_APPROXIMATION_CONSTANT: number = 0.01;
 
   execute(line: Line): MultiPointInLine {
+    this.ensureIsValidLine(line);
     return this.discatrizeLine(line);
+  }
+
+  private ensureIsValidLine(line: Line): void {
+    if (
+      line.value.length > TurfJSLineToPointsInterval.INTERMEDIATE_POINTS_IN_LINE
+    ) {
+      throw RangeError(
+        "The maximun line nodes is " +
+          TurfJSLineToPointsInterval.INTERMEDIATE_POINTS_IN_LINE
+      );
+    }
   }
 
   private calculateLineLength(line: Feature): number {
