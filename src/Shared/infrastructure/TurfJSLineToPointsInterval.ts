@@ -1,5 +1,6 @@
 import along from "@turf/along";
 import buffer from "@turf/buffer";
+import distance from "@turf/distance";
 import { Feature, feature, FeatureCollection, Properties } from "@turf/helpers";
 import { getCoords } from "@turf/invariant";
 import length from "@turf/length";
@@ -29,10 +30,6 @@ export default class TurfJSLineToPointsInterval
     return length(line, { units: "meters" });
   }
 
-  private getLineVertices(line: Feature<any, Properties>): any[] {
-    return getCoords(line);
-  }
-
   private calculateDistanceBetweenPoints(lineLenght: number): number {
     return Math.floor(
       lineLenght / TurfJSLineToPointsInterval.INTERMEDIATE_POINTS_IN_LINE
@@ -47,22 +44,28 @@ export default class TurfJSLineToPointsInterval
     const distanceBetweenPoints: number =
       this.calculateDistanceBetweenPoints(lineLenght);
 
+    let previousCalculatedPoint = this.getInitialLineNode(lineFeature);
+
     if (distanceBetweenPoints > 0) {
       for (
         let distance = distanceBetweenPoints;
         distance < lineLenght;
         distance += distanceBetweenPoints
       ) {
-        calculatedPoint = this.calculateNearPointAtDistance(
+        calculatedPoint = this.calculatePointOverLineAtDistance(
           lineFeature,
-          distance
+          distance,
+          previousCalculatedPoint
         );
-        pointsInLine.add(
-          PointInLine.create(
-            `${calculatedPoint.geometry.coordinates[0]} ${calculatedPoint.geometry.coordinates[1]}`,
-            distance
-          )
-        );
+        previousCalculatedPoint = calculatedPoint;
+        if (calculatedPoint != null) {
+          pointsInLine.add(
+            PointInLine.create(
+              `${calculatedPoint.geometry.coordinates[0]} ${calculatedPoint.geometry.coordinates[1]}`,
+              distance
+            )
+          );
+        }
       }
     }
 
@@ -82,10 +85,11 @@ export default class TurfJSLineToPointsInterval
     return feature(geometry);
   }
 
-  private calculateNearPointAtDistance(
+  private calculatePointOverLineAtDistance(
     line: Feature<any, Properties>,
-    distance: number
-  ): Feature {
+    distance: number,
+    previousCalculatedPoint: Feature<any, Properties>
+  ): Feature | null {
     const nearPoint = along(line, distance, { units: "meters" });
     const nearPointToLineDistance = pointToLineDistance(nearPoint, line, {
       units: "meters",
@@ -96,8 +100,7 @@ export default class TurfJSLineToPointsInterval
     let interesctionPoints = this.NearPointToLineIntersect(
       nearPoint,
       line,
-      bufferRadius,
-      distance
+      bufferRadius
     );
     while (
       interesctionPoints == null &&
@@ -108,23 +111,25 @@ export default class TurfJSLineToPointsInterval
       interesctionPoints = this.NearPointToLineIntersect(
         nearPoint,
         line,
-        bufferRadius,
-        distance
+        bufferRadius
       );
     }
 
     if (interesctionPoints == null) {
       console.warn(interesctionPoints);
+      return null;
     }
 
-    return interesctionPoints!.features[0];
+    return this.obtainBestIntersectionPoint(
+      interesctionPoints,
+      previousCalculatedPoint
+    );
   }
 
   private NearPointToLineIntersect(
     nearPoint: Feature,
     line: Feature<any, Properties>,
-    bufferRadius: number,
-    distance: number
+    bufferRadius: number
   ): FeatureCollection<any, Properties> | null {
     if (bufferRadius == 0) {
       bufferRadius = 0.0001;
@@ -137,6 +142,12 @@ export default class TurfJSLineToPointsInterval
       return null;
     }
     return interesctionPoints;
+  }
+
+  private getInitialLineNode(
+    line: Feature<any, Properties>
+  ): Feature<any, Properties> {
+    return getCoords(line)[0];
   }
 
   private getAllLineNodes(line: Line): PointInLine[] {
@@ -158,5 +169,24 @@ export default class TurfJSLineToPointsInterval
     }
 
     return pointsInLine;
+  }
+
+  private obtainBestIntersectionPoint(
+    interesctionPoints: FeatureCollection<any, Properties>,
+    previousCalculatedPoint: Feature<any, Properties>
+  ) {
+    if (interesctionPoints.features.length == 1) {
+      return interesctionPoints.features[0];
+    }
+    let minDistanceFeatureIndex = 0;
+    let minDistance = -9999;
+    interesctionPoints.features.forEach((feature, index) => {
+      const calculatedDistance = distance(feature, previousCalculatedPoint);
+      if (calculatedDistance < minDistance) {
+        minDistance = calculatedDistance;
+        minDistanceFeatureIndex = index;
+      }
+    });
+    return interesctionPoints.features[minDistanceFeatureIndex];
   }
 }
