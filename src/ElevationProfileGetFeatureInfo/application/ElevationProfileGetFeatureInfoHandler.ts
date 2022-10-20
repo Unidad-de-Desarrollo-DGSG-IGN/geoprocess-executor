@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import { container, inject, injectable } from "tsyringe";
 
+import HeightPrecision from "../../Shared/domain/HeightPrecision";
 import LayerFullname from "../../Shared/domain/LayerFullname";
 import Line from "../../Shared/domain/Line";
 import LineToPointsInterval from "../../Shared/domain/LineToPointsInterval";
@@ -53,7 +54,8 @@ export default class ElevationProfileGetFeatureInfoHandler {
 
   async execute(
     lineString: string,
-    responseType = ElevationProfileResponseType.LineString3D
+    responseType = ElevationProfileResponseType.LineString3D,
+    heightPrecision = 0
   ): Promise<JSON> {
     const line: Line = Line.createFromString(lineString);
     const elevationProfile: ElevationProfile = new ElevationProfile(
@@ -63,6 +65,10 @@ export default class ElevationProfileGetFeatureInfoHandler {
       new LayerFullname(this.mdeLayerFullname)
     );
 
-    return this.service.execute(elevationProfile, responseType);
+    return this.service.execute(
+      elevationProfile,
+      responseType,
+      new HeightPrecision(heightPrecision)
+    );
   }
 }
