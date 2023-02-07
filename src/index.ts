@@ -5,7 +5,10 @@ import ElevationProfile from "./ElevationProfile/application/ElevationProfileHan
 import { ElevationProfileResponseType } from "./ElevationProfile/application/ElevationProfileResponseType";
 import ElevationProfileGetFeatureInfo from "./ElevationProfileGetFeatureInfo/application/ElevationProfileGetFeatureInfoHandler";
 import HealthCheck from "./HealthCheck/application/HealthCheck";
+import { RiverCourseDirection } from "./RiverCourse/application/RiverCourseDirection";
+import RiverCourse from "./RiverCourse/application/RiverCourseHandler";
 import WaterRise from "./WaterRise/application/WaterRiseHandler";
+
 
 export {
   Contour,
@@ -15,5 +18,7 @@ export {
   ElevationProfileGetFeatureInfo,
   ElevationProfileResponseType,
   HealthCheck,
+  RiverCourse,
+  RiverCourseDirection,
   WaterRise,
 };
