@@ -9,7 +9,6 @@ import { RiverCourseDirection } from "./RiverCourse/application/RiverCourseDirec
 import RiverCourse from "./RiverCourse/application/RiverCourseHandler";
 import WaterRise from "./WaterRise/application/WaterRiseHandler";
 
-
 export {
   Contour,
   ElevationOfPoint,
