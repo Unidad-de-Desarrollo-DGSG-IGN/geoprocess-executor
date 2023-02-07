@@ -6,9 +6,7 @@ import RiverCourse from "../domain/RiverCourse";
 @injectable()
 export default class RiverCourseService {
   private postman: Postman;
-  constructor(
-    @inject("Postman") postman: Postman
-  ) {
+  constructor(@inject("Postman") postman: Postman) {
     this.postman = postman;
   }
 
@@ -17,6 +15,9 @@ export default class RiverCourseService {
   }
 
   async execute(riverCourse: RiverCourse): Promise<JSON> {
-    return await this.postman.post(riverCourse.fullWpsEndpoint, riverCourse.xmlInput);
+    return await this.postman.post(
+      riverCourse.fullWpsEndpoint,
+      riverCourse.xmlInput
+    );
   }
 }

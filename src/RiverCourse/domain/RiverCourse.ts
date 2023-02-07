@@ -67,7 +67,9 @@ export default class RiverCourse {
       <wps:Input>
         <ows:Identifier>tolerance</ows:Identifier>
         <wps:Data>
-          <wps:LiteralData>${RiverCourse.INTERSECTION_TOLERANCE}</wps:LiteralData>
+          <wps:LiteralData>${
+            RiverCourse.INTERSECTION_TOLERANCE
+          }</wps:LiteralData>
         </wps:Data>
       </wps:Input>
       <wps:Input>

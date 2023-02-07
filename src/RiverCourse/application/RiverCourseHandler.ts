@@ -7,8 +7,8 @@ import Point from "../../Shared/domain/Point";
 import wpsEndpoint from "../../Shared/domain/WPSEndpoint";
 import PostmanHTTP from "../../Shared/infrastructure/PostmanHTTP";
 import RiverCourse from "../domain/RiverCourse";
-import RiverCourseService from "./RiverCourseService";
 import { RiverCourseDirection } from "./RiverCourseDirection";
+import RiverCourseService from "./RiverCourseService";
 
 container.register("Postman", {
   useClass: PostmanHTTP,
