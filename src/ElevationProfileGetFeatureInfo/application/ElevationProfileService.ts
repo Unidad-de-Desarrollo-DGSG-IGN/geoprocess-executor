@@ -2,6 +2,7 @@ import { point } from "@turf/helpers";
 import { inject, injectable } from "tsyringe";
 
 import Height from "../../Shared/domain/Height";
+import HeightPrecision from "../../Shared/domain/HeightPrecision";
 import Line3D from "../../Shared/domain/Line3D";
 import Point3D from "../../Shared/domain/Point3D";
 import Postman from "../../Shared/domain/Postman";
@@ -29,7 +30,8 @@ export default class ElevationProfileService {
 
   async execute(
     elevationProfile: ElevationProfile,
-    responseType: ElevationProfileResponseType
+    responseType: ElevationProfileResponseType,
+    heightPrecision: HeightPrecision
   ): Promise<JSON> {
     this.ensureInputDataIsInTolerance(elevationProfile);
 
@@ -44,7 +46,11 @@ export default class ElevationProfileService {
         point.longitude,
         point.latitude,
         new Height(
-          Number(Object.values(postmanResponse.features[0].properties)[0])
+          Number(
+            Number(
+              Object.values(postmanResponse.features[0].properties)[0]
+            ).toFixed(heightPrecision.value)
+          )
         )
       );
     });

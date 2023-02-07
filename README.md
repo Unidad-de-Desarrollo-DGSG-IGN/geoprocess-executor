@@ -118,7 +118,7 @@ Add the height data given a line.
 
 - constructor(wpsEndpoint, mdeLayerFullname): when you generate a new instance of the class ElevationProfile, you must to indicate the WPS endpoind and the full name (example: workspace:layerName) of the mde layer that you wish to use.
 - getFields(): retrive an object indicating those geoprocess inputs.
-- async execute(lineString, ?responseType): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "GeoserviceFactory.ElevationProfileResponseType.LineString3D" (return a GeoJson with 3D LineString, the Z dimension is height) or "GeoserviceFactory.ElevationProfileResponseType.FeatureCollectionOfLines" (returns the height like a parameter of the Line). The default value is LineString3D.
+- async execute(lineString, ?responseType, ?heightPrecision): send the input data and the execute message to Geoserver WPS API. Retrieve JSON data with geoprocess result. The optional parameter responseType set the response type that be send to browser, it value could be "GeoserviceFactory.ElevationProfileResponseType.LineString3D" (return a GeoJson with 3D LineString, the Z dimension is height) or "GeoserviceFactory.ElevationProfileResponseType.FeatureCollectionOfLines" (returns the height like a parameter of the Line). The default value is LineString3D. Finally, the optional parameter heightPrecision set the decimals positions for the resulting height. The default value is 0, so the resulting height is going to return an integer value. 
 
 ### class WaterRise
 Generates a polygon of an area containing all height less than the requested height.
